@@ -13,6 +13,7 @@ const TagBar = ({
         loadTags();
     }, []);
 
+
     const handleTagSearch = (tag) => {
         searchByTag(tag);
     }

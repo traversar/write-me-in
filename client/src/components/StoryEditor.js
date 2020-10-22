@@ -32,13 +32,12 @@ const StoryEditor = ({
     }, [])
 
     const handlePost = e => {
-        console.log(genreSelect)
-        console.log(storyId)
         if (storyId !== undefined) {
-            console.log('here');
             createPost(bodyText, storyId);
+            return <Redirect to={`/stories/${storyId}/page/1`} />;
         } else {
             createPost(bodyText, null, titleText, synopsisText, tagsText, genreSelect)
+
         }
     }
 

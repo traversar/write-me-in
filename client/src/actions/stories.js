@@ -204,7 +204,7 @@ export const search = query => async (dispatch, getState) => {
 
 export const changeReadStatus = (storyId) => async (dispatch, getState) => {
     const { authentication: { token } } = getState();
-    await fetch(
+    const response = await fetch(
         `/api/stories/${storyId}/?update=status`,
         {
             method: 'put',
@@ -213,6 +213,9 @@ export const changeReadStatus = (storyId) => async (dispatch, getState) => {
               Authorization: `Bearer ${token}`,
             },
     });
+    if(response.ok) {
+        getUserStories();
+    }
 }
 
 

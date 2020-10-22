@@ -16,7 +16,7 @@ useLayoutEffect(() => {
 
 const handleReadStatus = (storyId) => {
     changeReadStatus(storyId)
-    getUserStories();
+    // getUserStories();
 }
 
 const handleShowAll = () => {
@@ -35,7 +35,7 @@ if(!userStoriesList || !userContributionsList) {
                     <div className='nb-container'>
                         {userStoriesList.map(story => {
                             return (
-                                    <NavLink key={story.id} onClick={!story.read ? handleReadStatus(story.id) : null} to={`/stories/${story.id}/page/1`}>
+                                    <NavLink key={story.id} onClick={!story.read ? () => handleReadStatus(story.id) : null} to={`/stories/${story.id}/page/1`}>
                                         <span>
                                             <h3>{story.title}</h3>
                                             {!story.read ? <p className='nb-story-readstatus'>(New Posts)</p> : null}

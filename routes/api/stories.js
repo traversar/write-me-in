@@ -122,6 +122,7 @@ router.put('/:storyId', asyncHandler(async(req, res, next) => {
 
         story.read = story.read ? false : true;
         await story.save();
+        res.sendStatus(200)
     }
 
     if(update === 'rating') {
@@ -133,6 +134,7 @@ router.put('/:storyId', asyncHandler(async(req, res, next) => {
 
         story.rating = vote === true ? story.rating+1 : story.rating-1;
         await story.save();
+        res.sendStatus(200)
     }
 }));
 
