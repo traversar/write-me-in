@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import * as StoryActions from '../actions/stories';
+import Rating from './Rating';
 import Header from './Header'
 import Navbar from './Navbar';
 import TagBar from './TagBar';
-import Rating from './Rating';
 
 
 const StoryBrowser = ({
@@ -43,7 +43,7 @@ const StoryBrowser = ({
 // shown
 
     return (
-        <main>
+        <>
             <Header />
             <TagBar />
             <div className='app-layout'>
@@ -76,7 +76,7 @@ const StoryBrowser = ({
                     })}
                 </div>
             </div>
-        </main>
+        </>
     )
 }
 

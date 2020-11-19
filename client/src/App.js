@@ -6,6 +6,9 @@ import LoginPanel from './components/LoginPanel';
 import StoryBrowser from './components/StoryBrowser';
 import StoryView from './components/StoryView';
 import StoryEditor from './components/StoryEditor';
+import Header from './components/Header'
+import Navbar from './components/Navbar';
+import TagBar from './components/TagBar';
 import * as AuthActions from './actions/authentication';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -31,16 +34,15 @@ const App = ({ needLogin, loadToken }) => {
 
   return (
     <BrowserRouter>
-      {/* <Header />
-      <TagBar />
-      <div className='app-layout'>
-        <Navbar /> */}
+      <main>
         <Switch>
           <PrivateRoute path="/"
             exact
             needLogin={needLogin}
             component={StoryBrowser} />
-          <Route path="/login" component={LoginPanel} />
+          <PrivateRoute path="/login"
+            exact
+            component={LoginPanel} />
           <PrivateRoute path="/stories/:storyId/page/:pageNum"
             exact
             needLogin={needLogin}
@@ -54,7 +56,7 @@ const App = ({ needLogin, loadToken }) => {
             needLogin={needLogin}
             component={StoryEditor} />
         </Switch>
-      {/* </div> */}
+      </main>
     </BrowserRouter>
   );
 }
