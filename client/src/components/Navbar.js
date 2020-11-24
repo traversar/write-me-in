@@ -31,31 +31,31 @@ if(!userStoriesList || !userContributionsList) {
     return (
         <div>
             <div className="nb-container-layout">
-                <h2>My Stories</h2>
-                    <div className='nb-container'>
-                        {userStoriesList.map(story => {
-                            return (
-                                    <NavLink key={story.id} onClick={!story.read ? () => handleReadStatus(story.id) : null} to={`/stories/${story.id}/page/1`}>
-                                        <span>
-                                            <h3>{story.title}</h3>
-                                            {!story.read ? <p className='nb-story-readstatus'>(New Posts)</p> : null}
-                                        </span>
-                                    </NavLink>
-                            )
-                        })}
-                        <button className='nb-showall-btn' onClick={handleShowAll} >(Show All)</button>
-                    </div>
-                <h2>My Contributions</h2>
-                    <div className='nb-container'>
-                        {userContributionsList.map(contribution => {
-                            return (
-                                <NavLink key={contribution.id} to={`/stories/${contribution.story.id}/page/1`}>
-                                    <h3>{contribution.story.title}</h3>
+                <div className='nb-container'>
+                    <h2>My Stories</h2>
+                    {userStoriesList.map(story => {
+                        return (
+                                <NavLink key={story.id} onClick={!story.read ? () => handleReadStatus(story.id) : null} to={`/stories/${story.id}/page/1`}>
+                                    <span>
+                                        <h3>{story.title}</h3>
+                                        {!story.read ? <p className='nb-story-readstatus'>(New Posts)</p> : null}
+                                    </span>
                                 </NavLink>
-                            )
-                        })}
-                        <button className='nb-showall-btn' onClick={handleShowAll} >(Show All)</button>
-                    </div>
+                        )
+                    })}
+                    <button className='nb-showall-btn' onClick={handleShowAll} >(Show All)</button>
+                </div>
+                <div className='nb-container'>
+                    <h2>My Contributions</h2>
+                    {userContributionsList.map(contribution => {
+                        return (
+                            <NavLink key={contribution.id} to={`/stories/${contribution.story.id}/page/1`}>
+                                <h3>{contribution.story.title}</h3>
+                            </NavLink>
+                        )
+                    })}
+                    <button className='nb-showall-btn' onClick={handleShowAll} >(Show All)</button>
+                </div>
             </div>
         </div>
     )

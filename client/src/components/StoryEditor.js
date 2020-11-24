@@ -62,7 +62,7 @@ const StoryEditor = ({
                         <textarea className='se-body-textarea'onChange={handleBodyInput} placeholder='And then...' value={bodyText} />
                         <button onClick={handlePost} value={bodyText}>Post</button>
                         </div>
-                        :
+                    :
                         <div>
                             <h2>Edit New Story</h2>
                             <input onChange={handleTitleInput} value={titleText} placeholder='Title' type='text' />
