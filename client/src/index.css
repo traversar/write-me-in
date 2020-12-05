@@ -71,7 +71,7 @@ body {
 
 .blur-element {
     background-image: linear-gradient(to top, transparent, white);
-    top: 80px;
+    top: 65px;
     position: sticky;
     position: -webkit-sticky;
     height: 25px;
@@ -247,8 +247,8 @@ body {
 .lp-container-form input, button {
     border-radius: 5px;
     margin-bottom: 5px;
-    /* background-color: rgb(236, 231, 255); */
     background-color: white;
+    /* background-color: rgb(236, 231, 255); */
     /* align-items: center; */
 }
 
@@ -280,7 +280,7 @@ body {
 .nb-container-layout {
     position: sticky;
     position: -webkit-sticky;
-    top: 85px;
+    top: 75px;
 }
 
 .nb-container h2 {
@@ -499,6 +499,7 @@ body {
 
 .sv-container {
     margin-top: 10px;
+    width: 100%;
 }
 
 .sv-container h2, h3 {
@@ -559,8 +560,30 @@ body {
     text-decoration: none;
 }
 
-/* .sv-writenext-btn {
-} */
+.sv-page-btn {
+    font-size: 1em;
+    color: rgb(54, 54, 54);
+    border-radius: 5px;
+    margin: 0 5px 5px 5px;
+    padding: 0 3px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.sv-page-btn-selected {
+    font-size: 1em;
+    color: rgb(99, 99, 99);
+    border-radius: 5px;
+    margin: 0 2px 5px 2px;
+    padding: 0 3px;
+    /* background-color: rgb(228, 228, 228); */
+    background-color: rgb(255, 255, 255, .5);
+    cursor: auto;
+}
+
+.sv-page-btn:hover {
+    background-color: rgb(236, 231, 255);
+}
 
 /*//////////////////////// StoryEditor ////*/
 

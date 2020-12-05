@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Redirect } from 'react-router-dom';
+
 import * as StoryActions from '../actions/stories';
 import Header from './Header'
 import Navbar from './Navbar';
@@ -12,7 +13,7 @@ const StoryEditor = ({
     createPost,
     getGenres,
     genreList,
-    newStoryId
+    returnStoryId
 }) => {
     const [bodyText, setBodyText] = useState();
     const [titleText, setTitleText] = useState();
@@ -34,10 +35,8 @@ const StoryEditor = ({
     const handlePost = e => {
         if (storyId !== undefined) {
             createPost(bodyText, storyId);
-            return <Redirect to={`/stories/${storyId}/page/1`} />;
         } else {
             createPost(bodyText, null, titleText, synopsisText, tagsText, genreSelect)
-
         }
     }
 
@@ -45,8 +44,10 @@ const StoryEditor = ({
         return null
     }
 
-    if(newStoryId) {
-        return <Redirect to={`/stories/${newStoryId}/page/1`} />;
+    if(returnStoryId) {
+        let returnId = returnStoryId;
+        //clear storyid here
+        return <Redirect to={`/stories/${returnId}/page/1`} />;
     }
 
     return (
@@ -84,13 +85,14 @@ const StoryEditor = ({
 
 const StoryEditorContainer = () => {
     const dispatch = useDispatch();
-    const createPost = (bodyText, storyId, titleText, synopsisText, tagsText, genreSelect) => dispatch(StoryActions.createPost(bodyText, storyId, titleText, synopsisText, tagsText, genreSelect));
+    const createPost = (bodyText, storyId, titleText, synopsisText, tagsText, genreSelect) => StoryActions.createPost(bodyText, storyId, titleText, synopsisText, tagsText, genreSelect);
     const getGenres = () => dispatch(StoryActions.getGenres());
     const story = useSelector(state => state.stories.story);
     const genreList = useSelector(state => state.stories.genreList);
     const newStoryId = useSelector(state => state.stories.newStoryId)
+    const clearNewStoryId = () => StoryActions.clearNewStoryId();
 
-    return <StoryEditor story={story} newStoryId={newStoryId} createPost={createPost} getGenres={getGenres} genreList={genreList} />
+    return <StoryEditor story={story} returnStoryId={newStoryId} clearNewStoryId={clearNewStoryId} createPost={createPost} getGenres={getGenres} genreList={genreList} />
 }
 
 export default StoryEditorContainer;

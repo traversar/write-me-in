@@ -15,6 +15,7 @@ const StoryView = ({
     getStory,
     getPosts,
 }) => {
+
     const { storyId, pageNum } = useParams();
     let [pages, setPages] = useState([]);
     let [postsPerPage, setPostsPerPage] = useState(5);
@@ -33,6 +34,7 @@ const StoryView = ({
         getPosts(storyId);
     }, [storyId]);
 
+
     useEffect(() => {
         if(postsList){
             setPages(generateNavs(postsList.length));
@@ -41,25 +43,9 @@ const StoryView = ({
         }
     }, [postsList, currentPage]);
 
-    // useLayoutEffect(() => {
-    //     if(story) {
-    //         const [lastPage, pages] = generateNavs(story.confirmedPostLength)
-    //         var step = 5;
-    //         var start = (parseInt(pageNum, 10) * 5) - 5;
-    //         if(pageNum === pages) {
-    //             step = lastPage;
-    //         }
-    //         getPosts(storyId);
-    //     }
-    // }, [story, pageNum, storyId]);
-
-
-
-
     if(!postsList || !story) {
         return null;
     }
-
 
     return (
         <div>
@@ -73,14 +59,12 @@ const StoryView = ({
 
                     <div className='sv-pagenums'>
                         <div>
-                        {pages.map(num => (
-                            // add check condition if num is equal to query page, if so render number without link
-                                <span key={num}>
-                                    {/* {num === parseInt(pageNum, 10) ? `${num}` : <NavLink to={`/stories/${storyId}/page/${num}`}>{num}</NavLink>} */}
-                                    {num === parseInt(currentPage, 10) ? `${num}` : <span onClick={() => setCurrentPage(num)}>{num}</span>}
-                                    <span>{num === pages.length ? '' : ' | '}</span>
-                                </span>
-                        ))}
+                            {pages.map(num => (
+                                // add check condition if num is equal to query page, if so render number without link
+                                    <span key={num}>
+                                        {num === parseInt(currentPage, 10) ? <span className='sv-page-btn-selected'>{num}</span> : <span className='sv-page-btn' onClick={() => setCurrentPage(num)}>{num}</span>}
+                                    </span>
+                            ))}
                         </div>
                     </div>
 
@@ -103,14 +87,12 @@ const StoryView = ({
 
                     <div className='sv-pagenums'>
                         <div>
-                        {pages.map(num => (
-                            // add check condition if num is equal to query page, if so render number without link
-                                <span key={num}>
-                                    {/* {num === parseInt(pageNum, 10) ? `${num}` : <NavLink to={`/stories/${storyId}/page/${num}`}>{num}</NavLink>} */}
-                                    {num === parseInt(currentPage, 10) ? `${num}` : <span onClick={() => setCurrentPage(num)}>{num}</span>}
-                                    <span>{num === pages.length ? '' : ' | '}</span>
-                                </span>
-                        ))}
+                            {pages.map(num => (
+                                // add check condition if num is equal to query page, if so render number without link
+                                    <span key={num}>
+                                        {num === parseInt(currentPage, 10) ? <span className='sv-page-btn-selected'>{num}</span> : <span className='sv-page-btn' onClick={() => setCurrentPage(num)}>{num}</span>}
+                                    </span>
+                            ))}
                         </div>
                     </div>
 

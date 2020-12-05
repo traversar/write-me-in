@@ -7,6 +7,7 @@ export const LOAD_TAGS = 'LOAD_TAGS';
 export const SHOW_QUERY = 'SHOW_QUERY';
 export const LOAD_GENRES = 'LOAD_GENRES';
 export const GET_NEW_ID = 'GET_NEW_ID';
+export const CLEAR_NEW_ID = 'CLEAR_NEW_ID';
 
 export const createPost = (body, storyId, title, synopsis, tags, genreId) => async(dispatch, getState) => {
     console.log(genreId)
@@ -25,7 +26,12 @@ export const createPost = (body, storyId, title, synopsis, tags, genreId) => asy
     if (response.ok) {
         const storyId = await response.json();
         dispatch(getNewId(storyId));
+        return storyId;
     }
+}
+
+export const clearNewStoryId = () => async(dispatch, getState) => {
+    dispatch({ type: CLEAR_NEW_ID })
 }
 
 const getNewId = (storyId) => ({
@@ -167,25 +173,6 @@ export const getUserStories = () => async (dispatch, getState) => {
         dispatch(loadUserStories(userStoryLists));
     }
 }
-
-// const loadTags = (tags) => ({
-//     type: LOAD_TAGS,
-//     tags
-// })
-
-
-// export const getTags = () => async (dispatch, getState) => {
-//     const { authentication: { token } } = getState();
-//     const response = await fetch(
-//         `/api/tags/`,
-//         { headers: { Authorization: `Bearer ${token}` } }
-//     );
-
-//     if (response.ok) {
-//         const tags = response.json();
-//         dispatch(loadTags(tags));
-//     }
-// }
 
 export const search = query => async (dispatch, getState) => {
     const { authentication: { token } } = getState();

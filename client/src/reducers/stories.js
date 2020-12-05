@@ -1,5 +1,5 @@
 import {
-    LOAD, LOAD_USER_STORIES, LOAD_POSTS, LOAD_TAGS, LOAD_STORY, SHOW_QUERY, LOAD_GENRES, GET_NEW_ID
+    LOAD, LOAD_USER_STORIES, LOAD_POSTS, LOAD_TAGS, LOAD_STORY, SHOW_QUERY, LOAD_GENRES, GET_NEW_ID, CLEAR_NEW_ID
 } from '../actions/stories';
 
 const storiesReducer = (state = {}, action) => {
@@ -44,6 +44,11 @@ const storiesReducer = (state = {}, action) => {
             return {
                 ...state,
                 newStoryId: action.storyId
+            }
+        case CLEAR_NEW_ID:
+            return {
+                ...state,
+                newStoryId: null
             }
         default: return state;
     }
