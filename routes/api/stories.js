@@ -76,14 +76,14 @@ router.get('/', asyncHandler(async(req, res, next) => {
 
 router.get('/:storyId/posts', asyncHandler(async(req, res, next) => {
     const storyId = req.params.storyId;
-    const { start, step } = req.query;
+    // const { start, step } = req.query;
 
     const posts = await Post.findAll({
         where: { storyId },
         include: { model: User, as: 'user', include: [{model: Rating, as: 'ratings'}]},
         order: [['order', 'ASC']],
-        limit: step,
-        offset: start
+        // limit: step,
+        // offset: start
     });
 
     if (posts) {

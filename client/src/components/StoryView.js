@@ -1,26 +1,4 @@
-// how many posts per page
-// load on scroll?
-// jump to end?
-// => how about: 5 posts per page, make function that divides total number of posts by 5
-// to generate navlinks at the bottom with different querystrings to fetch each 5 post
-// increment
-
-// also, need function that maps all confirmed & unconfirmed posts up until
-// 'order number === number of confirmed posts', passing a hidden class to unconfirmed
-// posts. When 'order number > number of confirmed posts' those unconfirmed posts will
-// be visible but of a class style more precarious, to show that they are
-// not instantiated--opened to editor or user approval.
-
-// contribute button on all pages, with pop-up editor.
-
-// Implement rating.
-// create backend routes
-//      put /api/stories/:id/?update=rating --change Stories rating
-//      put /api/ratings/?story=storyId     --create rating entry for user&story
-//      put /api/ratings/?post=postId       --create rating entry for user&post
-// => when posts/stories are fetched, include ratings where postid/storyid and userid
-
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, NavLink, Link } from 'react-router-dom';
 
@@ -38,29 +16,42 @@ const StoryView = ({
     getPosts,
 }) => {
     const { storyId, pageNum } = useParams();
+    let [pages, setPages] = useState([]);
+    let [postsPerPage, setPostsPerPage] = useState(5);
+    let [currentPage, setCurrentPage] = useState(pageNum);
+    let [posts, setPosts] = useState([]);
 
-    const generateNavs = (numPosts, numPages=5) => {
+    const generateNavs = (numPosts, numPerPage=postsPerPage) => {
         // returns array; first ele = # of posts on last page;
         // second ele = # of pages
-        return [numPosts % numPages, Array.from({length: Math.ceil(numPosts/numPages)}, (_, index) => index+1)];
+        let numPages = numPosts % numPerPage === 0 ? numPosts/numPerPage : numPosts/numPerPage + 1;
+        return Array.from({length: numPages}, (_, index) => index+1)
     }
 
     useEffect(() => {
         getStory(storyId);
+        getPosts(storyId);
     }, [storyId]);
 
-
-    useLayoutEffect(() => {
-        if(story) {
-            const [lastPage, numPages] = generateNavs(story.confirmedPostLength)
-            var step = 5;
-            var start = (parseInt(pageNum, 10) * 5) - 5;
-            if(pageNum === numPages) {
-                step = lastPage;
-            }
-            getPosts(storyId, start, step);
+    useEffect(() => {
+        if(postsList){
+            setPages(generateNavs(postsList.length));
+            let start = 0 + ((currentPage-1) * postsPerPage);
+            setPosts(postsList.slice(start, start + 5))
         }
-    }, [story, pageNum, storyId]);
+    }, [postsList, currentPage]);
+
+    // useLayoutEffect(() => {
+    //     if(story) {
+    //         const [lastPage, pages] = generateNavs(story.confirmedPostLength)
+    //         var step = 5;
+    //         var start = (parseInt(pageNum, 10) * 5) - 5;
+    //         if(pageNum === pages) {
+    //             step = lastPage;
+    //         }
+    //         getPosts(storyId);
+    //     }
+    // }, [story, pageNum, storyId]);
 
 
 
@@ -69,7 +60,6 @@ const StoryView = ({
         return null;
     }
 
-    const [lastPage, numPages] = generateNavs(story.confirmedPostLength)
 
     return (
         <div>
@@ -78,24 +68,23 @@ const StoryView = ({
             <div className='app-layout'>
                 <Navbar />
                 <div className='sv-container'>
-                    {/* <div className='blur-element'>`</div> */}
                     <h2>{story.title}</h2>
                     <h3>editor: {story.user.username}</h3>
 
                     <div className='sv-pagenums'>
                         <div>
-                        {numPages.map(num => (
+                        {pages.map(num => (
                             // add check condition if num is equal to query page, if so render number without link
                                 <span key={num}>
-                                    {num === parseInt(pageNum, 10) ? `${num}` : <NavLink to={`/stories/${storyId}/page/${num}`}>{num}</NavLink>}
-                                    {/* {num == pageNum ? `${num}` : <button onclick={renderPosts} to={`/stories/${storyId}/page/${num}`}>{num}</NavLink>} */}
-                                    <span>{num === numPages.length ? '' : ' | '}</span>
+                                    {/* {num === parseInt(pageNum, 10) ? `${num}` : <NavLink to={`/stories/${storyId}/page/${num}`}>{num}</NavLink>} */}
+                                    {num === parseInt(currentPage, 10) ? `${num}` : <span onClick={() => setCurrentPage(num)}>{num}</span>}
+                                    <span>{num === pages.length ? '' : ' | '}</span>
                                 </span>
                         ))}
                         </div>
                     </div>
 
-                    {postsList.map(post => (
+                    {posts.map(post => (
                         <div key={post.id}>
                         {post.order <= story.confirmedPostLength ?
                             post.confirmationStatus ?
@@ -114,12 +103,12 @@ const StoryView = ({
 
                     <div className='sv-pagenums'>
                         <div>
-                        {numPages.map(num => (
+                        {pages.map(num => (
                             // add check condition if num is equal to query page, if so render number without link
                                 <span key={num}>
-                                    {num === parseInt(pageNum, 10) ? `${num}` : <NavLink to={`/stories/${storyId}/page/${num}`}>{num}</NavLink>}
-                                    {/* {num == pageNum ? `${num}` : <button onclick={renderPosts} to={`/stories/${storyId}/page/${num}`}>{num}</NavLink>} */}
-                                    <span>{num === numPages.length ? '' : ' | '}</span>
+                                    {/* {num === parseInt(pageNum, 10) ? `${num}` : <NavLink to={`/stories/${storyId}/page/${num}`}>{num}</NavLink>} */}
+                                    {num === parseInt(currentPage, 10) ? `${num}` : <span onClick={() => setCurrentPage(num)}>{num}</span>}
+                                    <span>{num === pages.length ? '' : ' | '}</span>
                                 </span>
                         ))}
                         </div>

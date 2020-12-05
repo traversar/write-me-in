@@ -71,7 +71,6 @@ const loadTags = (tags) => ({
 })
 
 export const getStory = (storyId) => async(dispatch, getState) => {
-    console.log("it's happeing")
     const { authentication: { token } } = getState();
     const response = await fetch(
         `/api/stories/${storyId}`,
@@ -226,7 +225,8 @@ const loadPosts = posts => ({
 
 export const getPosts = (storyId, start, step) => async (dispatch, getState) => {
     const { authentication: { token } } = getState();
-    const response = await fetch(`/api/stories/${storyId}/posts/?start=${start}&step=${step}`, {
+    // const response = await fetch(`/api/stories/${storyId}/posts/?start=${start}&step=${step}`, {
+    const response = await fetch(`/api/stories/${storyId}/posts`, {
         headers: {
             Authorization: `Bearer ${token}`,
             // Check user id on token serverside, for user dependent post properties

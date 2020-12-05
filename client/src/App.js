@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
@@ -23,10 +23,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 const App = ({ needLogin, loadToken }) => {
   const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => {
-    setLoaded(true);
+  useLayoutEffect(() => {
     loadToken();
-  }, [loadToken]);
+    setLoaded(true);
+
+    console.log(needLogin)
+
+  }, [loaded]);
 
   if(!loaded) {
     return null;
