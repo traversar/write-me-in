@@ -5,6 +5,8 @@ import SearchBar from './SearchBar';
 import * as AuthActions from '../actions/authentication';
 import LoginPanel from './LoginPanel'
 
+import { IoCreateOutline, IoLogOutOutline, IoLogInOutline } from "react-icons/io5";
+
 const Header = ({
     logout,
     loggedOut
@@ -37,9 +39,9 @@ const Header = ({
                 </div>
                 <div className='h-btns'>
                     <Link to='/write'>
-                        <button className='h-writenew-btn'>Write</button>
+                        <button className='h-writenew-btn'><IoCreateOutline /></button>
                     </Link>
-                    <button className='h-logout-btn' onClick={handleLoginLogout}>{loggedOut ? "Login" : "Logout"}</button>
+                    <button className='h-logout-btn' onClick={handleLoginLogout}>{loggedOut ? <IoLogInOutline /> : <IoLogOutOutline />}</button>
                 </div>
             </div>
         </div>

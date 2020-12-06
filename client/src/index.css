@@ -137,6 +137,11 @@ body {
     background-color: rgb(236,231,255);
 }
 
+.h-content-container svg {
+    width: 1.5em;
+    height: 1.5em;
+}
+
 .h-writenew-btn {
     margin: 0 5px;
     background-color: rgb(236,231,255);
@@ -299,7 +304,6 @@ body {
 .nb-container {
     background-color: white;
     border-radius: 5px;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
     padding: 10px 10px;
     margin: 0 10px 10px 0;
     height: fit-content;
@@ -369,7 +373,7 @@ body {
 }
 
 .sb-story-navlink {
-    margin: 10px 0 2px;
+    margin: 0 0 10px;
     padding: 10px 10px;
     width: 760px;
     background-color: white;
@@ -377,8 +381,10 @@ body {
     text-decoration: none;
     display: block;
     border-radius: 5px;
-    box-shadow: 0 0 4px rgba(0,0,0,0.2);
     width: 100%;
+    display: flex;
+    flex-direction: row;
+
 }
 
 .sb-story-navlink:hover {
@@ -414,22 +420,20 @@ body {
 .sb-rating-container {
     align-self: end;
     display: flex;
-    flex-direction: center;
+    flex-direction: column;
     height: fit-content;
+    margin-right: 2px;
 }
 
-.sb-rating-container button {
-    font-size: .5em;
-    appearance: none;
-    border: none;
-    height: fit-content;
+.sb-vote-icon svg {
+    height: .7em;
+    color: #a0b4e5;
 }
 
 .sb-rating-container span {
     font-size: .5em;
-    padding: 0 5px;
     margin: 0;
-    height: fit-content;
+    text-align: center;
     color: rgb(121, 121, 121);
 }
 
@@ -440,7 +444,7 @@ body {
 .sb-contributors-text {
     margin-top: 0;
     padding-top: 0;
-    font-size: 1em;
+    font-size: .65em;
     color: rgb(124, 124, 124);
     position: relative;
     bottom: 5px;
@@ -452,7 +456,8 @@ body {
 }
 
 .sb-story-title {
-    font-size: 1em;
+    font-size: .85em;
+    font-weight: 600;
 }
 
 .sb-genre-text {
@@ -465,11 +470,11 @@ body {
 
 }
 .sb-contributors-text {
-    font-size: .8em
+    font-size: .65em
 }
 
 .sb-synopsis-text {
-    font-size: .8em;
+    font-size: .7em;
 }
 
 

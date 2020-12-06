@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import * as StoryActions from '../actions/stories';
+import { BiUpvote, BiDownvote } from "react-icons/bi";
 
 const Rating = ({
     rateStory,
@@ -39,9 +40,9 @@ const Rating = ({
 
     return (
         <div className='sb-rating-container'>
-            <button id={`upvote-${story.id}`} onClick={(e) => handleRate(e, true, story.id)}>Upvote</button>
+            <div id={`upvote-${story.id}`} className='sb-vote-icon' onClick={(e) => handleRate(e, true, story.id)}><BiUpvote /></div>
             <span id={`story-rating-${story.id}`}>{story.rating}</span>
-            <button id={`downvote-${story.id}`} onClick={(e) => handleRate(e, false, story.id)}>Downvote</button>
+            <div id={`downvote-${story.id}`} className='sb-vote-icon' onClick={(e) => handleRate(e, false, story.id)}><BiDownvote /></div>
         </div>
     )
 }

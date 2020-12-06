@@ -54,23 +54,23 @@ const StoryBrowser = ({
                         return (
                             <div key={story.id} className='sb-story-navcontainer'>
                                 <NavLink key={story.id} className='sb-story-navlink' to={`/stories/${story.id}/page/1`}>
+                                    <Rating story={{ id: story.id, rating: story.rating }} />
                                     <div>
                                         <div>
                                             <p className='sb-story-title'>{story.title}</p>
                                             <p className='sb-author-text'> by {story.user.username}</p>
                                         </div>
                                         <div className='sb-details-contributors'>
-                                            {story.contributors.length > 0 && <p className='sb-contributors-text'>and
+                                            {story.contributors.length > 0 && <p className='sb-contributors-text'>and contributors
                                             {story.contributors.map((contributor, idx) => (' ' + contributor.user.username + (story.contributors.length-1 === idx ? '' : ',')))}
                                             </p>}
                                         </div>
                                         <div className='sb-details-genre-syn'>
                                             <p className='sb-genre-text'>({story.genre.genreName}) </p>
-                                            <p className='sb-synopsis-text'> {story.synopsis}</p>
+                                            <p className='sb-synopsis-text'>{` ${story.synopsis}`}</p>
                                         </div>
                                     </div>
                                 </NavLink>
-                                <Rating story={{ id: story.id, rating: story.rating }} />
                             </div>
                         )
                     })}
