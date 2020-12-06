@@ -18,7 +18,14 @@ const StoryBrowser = ({
 
     useEffect(() => {
         getStories(start, limit);
+
+        return clearQuery()
     }, [])
+
+    const clearQuery = () => {
+        let queryDiv = document.querySelector('.sb-searchresult');
+        if(queryDiv) queryDiv.innerHTML = '';
+    }
 
     if(!storyList) {
         return null;
@@ -54,7 +61,7 @@ const StoryBrowser = ({
                         return (
                             <div key={story.id} className='sb-story-navcontainer'>
                                 <NavLink key={story.id} className='sb-story-navlink' to={`/stories/${story.id}/page/1`}>
-                                    <Rating story={{ id: story.id, rating: story.rating }} />
+                                <Rating story={{ id: story.id, rating: story.rating }} />
                                     <div>
                                         <div>
                                             <p className='sb-story-title'>{story.title}</p>

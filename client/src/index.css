@@ -391,6 +391,12 @@ body {
     box-shadow: 0 0 4px rgba(236,231,255,0.6);
 }
 
+.sb-story-navcontainer {
+    width: 650px;
+
+
+}
+
 .sb-story-title {
     padding-bottom: 0;
     margin-bottom: 0;
@@ -410,12 +416,10 @@ body {
 .sb-story-rating {
     display: block;
     align-self: right;
+    z-index: 1;
 
 }
 
-.sb-story-navcontainer {
-    width: 650px;
-}
 
 .sb-rating-container {
     align-self: end;
