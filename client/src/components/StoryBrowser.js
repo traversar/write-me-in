@@ -17,7 +17,9 @@ const StoryBrowser = ({
     const limit = 10;
 
     useEffect(() => {
-        getStories(start, limit);
+        if(!query) {
+            getStories(start, limit);
+        }
 
         return clearQuery()
     }, [])
@@ -30,24 +32,6 @@ const StoryBrowser = ({
     if(!storyList) {
         return null;
     }
-
-
-// Add links within storyNavLink that rerenders storyList with specifiers such as User
-// also add back button to return from specified
-// Add Reviews link inside of a <div> after each navlink that fetches reviews by storyId
-// and fill e.target ?? Keep thinking
-//  => object with keys=storyIds, if obj.storyId exists, map commments. onclick, if object.storyId
-//      exists, delete, if not, fetch.
-//      pull navLinks out and implement this within each of those, so only each navLink must reload!
-
-// Reimplement this route with queries to set start and limit
-// use these as page links (generate these like you do posts in
-// story view)
-// Then, use History
-// => Better yet, implement infinite scroll
-
-// Add div at top that checks for searchResult variable to display the parameters of the results being
-// shown
 
     return (
         <>
