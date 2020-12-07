@@ -8,6 +8,7 @@ export const SHOW_QUERY = 'SHOW_QUERY';
 export const LOAD_GENRES = 'LOAD_GENRES';
 export const GET_NEW_ID = 'GET_NEW_ID';
 export const CLEAR_NEW_ID = 'CLEAR_NEW_ID';
+export const CLEAR_QUERY = 'CLEAR_QUERY';
 
 export const createPost = (body, storyId, title, synopsis, tags, genreId) => async(dispatch, getState) => {
     console.log(genreId)
@@ -57,6 +58,10 @@ const showQuery = query => ({
     type: SHOW_QUERY,
     query
 })
+
+export const clearQuery = () => async(dispatch, getState) => {
+    dispatch({ type: CLEAR_QUERY })
+}
 
 export const getTags = (limit = 10) => async(dispatch, getState) => {
     const { authentication: { token } } = getState();

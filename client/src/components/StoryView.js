@@ -23,8 +23,6 @@ const StoryView = ({
     let [posts, setPosts] = useState([]);
 
     const generateNavs = (numPosts, numPerPage=postsPerPage) => {
-        // returns array; first ele = # of posts on last page;
-        // second ele = # of pages
         let numPages = numPosts % numPerPage === 0 ? numPosts/numPerPage : numPosts/numPerPage + 1;
         return Array.from({length: numPages}, (_, index) => index+1)
     }
@@ -38,6 +36,8 @@ const StoryView = ({
     useEffect(() => {
         if(postsList){
             setPages(generateNavs(postsList.length));
+            if(currentPage === Number(-1)) {console.log('true'); setCurrentPage(generateNavs[generateNavs.length-1])}
+            console.log(currentPage)
             let start = 0 + ((currentPage-1) * postsPerPage);
             setPosts(postsList.slice(start, start + 5))
         }

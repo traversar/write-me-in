@@ -7,11 +7,13 @@ import Header from './Header'
 import Navbar from './Navbar';
 import TagBar from './TagBar';
 
+import { IoCloseCircle } from "react-icons/io5";
 
 const StoryBrowser = ({
     getStories,
     storyList,
-    query
+    query,
+    clearQuery
 }) => {
     const start = 1;
     const limit = 10;
@@ -21,12 +23,14 @@ const StoryBrowser = ({
             getStories(start, limit);
         }
 
-        return clearQuery()
+        return resetQuery()
     }, [])
 
-    const clearQuery = () => {
+    const resetQuery = () => {
         let queryDiv = document.querySelector('.sb-searchresult');
         if(queryDiv) queryDiv.innerHTML = '';
+        clearQuery()
+        getStories(start, limit)
     }
 
     if(!storyList) {
@@ -40,12 +44,18 @@ const StoryBrowser = ({
             <div className='app-layout'>
                 <Navbar />
                 <div className="sb-browser">
-                    {query ? <div className='sb-searchresult'>{`Results for ${query}`}</div> : ''}
+                    {query ?
+                        <div className='sb-searchresult'>
+                            <IoCloseCircle onClick={resetQuery} />
+                            {`Results for ${query}`}
+                        </div>
+                    :
+                        ''}
                     {storyList.map(story => {
                         return (
                             <div key={story.id} className='sb-story-navcontainer'>
-                                <NavLink key={story.id} className='sb-story-navlink' to={`/stories/${story.id}/page/1`}>
                                 <Rating story={{ id: story.id, rating: story.rating }} />
+                                <NavLink key={story.id} className='sb-story-navlink' to={`/stories/${story.id}/page/1`}>
                                     <div>
                                         <div>
                                             <p className='sb-story-title'>{story.title}</p>
@@ -76,12 +86,14 @@ const StoryBrowserContainer = () => {
     const storyList = useSelector(state => state.stories.storyList);
     const getStories = (start, limit) => dispatch(StoryActions.getStories(start, limit));
     const query = useSelector(state => state.stories.query);
+    const clearQuery = () => dispatch(StoryActions.clearQuery());
 
     return (
         <StoryBrowser
             storyList={storyList}
             getStories={getStories}
-            query={query} />
+            query={query}
+            clearQuery={clearQuery} />
     )
 }
 

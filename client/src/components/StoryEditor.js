@@ -47,7 +47,7 @@ const StoryEditor = ({
     if(returnStoryId) {
         let returnId = returnStoryId;
         //clear storyid here
-        return <Redirect to={`/stories/${returnId}/page/1`} />;
+        return <Redirect to={`/stories/${returnId}/page/-1`} />;
     }
 
     return (
@@ -85,12 +85,12 @@ const StoryEditor = ({
 
 const StoryEditorContainer = () => {
     const dispatch = useDispatch();
-    const createPost = (bodyText, storyId, titleText, synopsisText, tagsText, genreSelect) => StoryActions.createPost(bodyText, storyId, titleText, synopsisText, tagsText, genreSelect);
+    const createPost = (bodyText, storyId, titleText, synopsisText, tagsText, genreSelect) => dispatch(StoryActions.createPost(bodyText, storyId, titleText, synopsisText, tagsText, genreSelect));
     const getGenres = () => dispatch(StoryActions.getGenres());
     const story = useSelector(state => state.stories.story);
     const genreList = useSelector(state => state.stories.genreList);
     const newStoryId = useSelector(state => state.stories.newStoryId)
-    const clearNewStoryId = () => StoryActions.clearNewStoryId();
+    const clearNewStoryId = () => dispatch(StoryActions.clearNewStoryId());
 
     return <StoryEditor story={story} returnStoryId={newStoryId} clearNewStoryId={clearNewStoryId} createPost={createPost} getGenres={getGenres} genreList={genreList} />
 }
