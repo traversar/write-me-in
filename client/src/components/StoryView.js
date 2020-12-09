@@ -19,7 +19,7 @@ const StoryView = ({
     const { storyId, pageNum } = useParams();
     let [pages, setPages] = useState([]);
     let [postsPerPage, setPostsPerPage] = useState(5);
-    let [currentPage, setCurrentPage] = useState(pageNum);
+    let [currentPage, setCurrentPage] = useState(pageNum || 1);
     let [posts, setPosts] = useState([]);
 
     const generateNavs = (numPosts, numPerPage=postsPerPage) => {

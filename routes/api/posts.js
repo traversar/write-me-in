@@ -1,45 +1,67 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
-const { Post, Rating, Story, StoryTag, Tag } = require('../../db/models');
+const { Post, Rating, Story, StoryTag, Tag} = require('../../db/models');
 const atob = require('atob');
 const router = express.Router();
 
 router.put('/:postId/', asyncHandler(async(req, res, next) => {
     const userId = JSON.parse(atob(req.cookies.token.split('.')[1])).data.id
     const postId = req.params.postId;
-    const vote = req.query.rating;
+    const vote = req.query.rating === 'true' ? true : false;
+    console.log('typeof vote: ', typeof vote)
     const confirm = req.query.confirm;
 
     let post = await Post.findOne({
         where: { id: postId },
     })
 
-    const story = await Story.findOne({
-        where: { id: post.storyId }
-    })
 
-
-    console.log(vote);
     if (vote !== undefined) {
-        //Make record that user has rated post
-        await Rating.create({
-            userId,
-            postId,
-            vote
+        //Check if user has already rated post
+        let existingRating = await Rating.findOne({
+            where: { userId, postId }
         })
 
-        post.rating = vote === 'true' ? post.rating+1 : post.rating-1;
+        if(existingRating) {
+            console.log('existingRating.vote: ', existingRating.vote, 'existingRating.vote == vote: ', existingRating.vote == vote )
+            if(existingRating.vote == vote) {
+                console.log('in conditional')
+                return res.sendStatus(403)
+            }
+            post.rating = existingRating.vote === true ? post.rating-2 : post.rating+2;
+            existingRating.vote = existingRating.vote === true ? false : true;
+            await existingRating.save();
+        } else {
+            //If not existing rating, make record that user has rated post
+            await Rating.create({
+                userId,
+                postId,
+                vote
+            })
+            post.rating = vote === true ? post.rating+1 : post.rating-1;
+        }
+
         if (post.rating >= 10) {
+            //Check if new rating is enough (>=10) to confirm post
+            const story = await Story.findOne({
+                where: { id: post.storyId }
+            })
             post.confirmationStatus = true;
             story.confirmedPostLength += 1;
+            await story.save();
         }
-    } else if (confirm !== undefined) {
+    }
+    await post.save();
+
+    if (confirm !== undefined) {
+        const story = await Story.findOne({
+            where: { id: post.storyId }
+        })
         post.confirmationStatus = true;
         story.confirmedPostLength += 1;
+        await story.save();
     }
 
-    await post.save();
-    await story.save();
     res.sendStatus(200);
 }))
 

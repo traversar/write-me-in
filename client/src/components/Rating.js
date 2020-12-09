@@ -8,13 +8,6 @@ const Rating = ({
     story
 }) => {
 
-    // const handleRate = (e, vote, storyId) => {
-    //     rateStory(vote, storyId);
-    //     e.target.setAttribute('disabled', 'disabled')
-    //     const ratingEle = document.getElementById(`story-${story.id}`)
-    //     ratingEle.innerHTML = vote ? story.rating+1 : story.rating-1;
-    // }
-
     const handleRate = (e, vote, storyId) => {
         const ratingP = document.getElementById(`story-rating-${story.id}`)
         let ratingPNum = parseInt(ratingP.innerHTML, 10);

@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler');
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 
-const { User } = require('../../db/models');
+const { User, Rating } = require('../../db/models');
 const { authenticated, generateToken, loginUser } = require('./auth.js');
 
 const router = express.Router();
@@ -65,17 +65,12 @@ const signupValidators = [
         })
 ];
 
-router.get('/', asyncHandler(async function (req, res, next) {
-    const users = await User.findAll();
-    res.json({ users });
-}));
-
 router.put('/', [signinValidators], asyncHandler(async(req, res, next) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()) return next({ status: 422, errors: errors.array() });
 
     const { email, password } = req.body;
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email }, include: { model: Rating, as: 'ratings' } });
     // if(user !== null) {
     const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
         if(passwordMatch) {

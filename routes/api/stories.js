@@ -29,17 +29,11 @@ router.get('/', asyncHandler(async(req, res, next) => {
                     title: {
                         [Op.iLike]: '%'+search+'%'
                     },
-                    // [user.username]: {
-                    //     [Op.iLike]: search
-                    // },
-                    // tag: {
-                    //     [Op.iLike]: search
-                    // }
                 }
             }
         })
-        :
-        specifiedUser ?
+    :
+    specifiedUser ?
         [await Story.findAll({
             where: {
                 userId,
@@ -52,7 +46,7 @@ router.get('/', asyncHandler(async(req, res, next) => {
                 {model: Story, as: 'story'}
             ]
         })]
-        :
+    :
         await Story.findAll({
             limit,
             offset: start,

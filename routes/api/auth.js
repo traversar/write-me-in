@@ -5,7 +5,7 @@ const { jwtConfig: { secret, expiresIn } } = require('../../config');
 const { User } = require('../../db/models');
 
 function generateToken(user) {
-  const data = user.toSafeObject();
+  const data = user.toPayload();
   const jwtid = uuid();
 
   return {

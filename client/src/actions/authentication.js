@@ -1,6 +1,9 @@
 const TOKEN_KEY = 'writemein/authentication/token';
 export const SET_TOKEN = 'SET_TOKEN';
 export const REMOVE_TOKEN = 'REMOVE_TOKEN';
+export const SET_USER_DATA = 'SET_USER_DATA';
+export const REMOVE_USER_DATA = 'REMOVE_USER_DATA';
+
 
 export const removeToken = () => ({
     type: REMOVE_TOKEN,
@@ -26,9 +29,10 @@ export const login = (email, password) => async dispatch => {
     });
 
     if(response.ok) {
-        const { token } = await response.json();
+        const { token, user } = await response.json();
         window.localStorage.setItem(TOKEN_KEY, token);
         dispatch(setToken(token));
+        dispatch({ type: SET_USER_DATA, user })
     }
 };
 

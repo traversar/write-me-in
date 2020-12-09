@@ -35,13 +35,28 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.StoryContributor, { foreignKey: 'userId', as: 'contributions'});
   };
 
-  User.prototype.toSafeObject = function () {
+  User.prototype.toPayload = function () {
     return {
-      createdAt: this.createdAt,
+      id: this.id
+    }
+  }
+
+  User.prototype.toSafeObject = function () {
+    let ratingsObj = { stories: {}, posts: {} };
+    if(this.ratings) {
+      this.ratings.forEach(rating => {
+        if(rating.storyId) {
+          ratingsObj.stories[rating.storyId] = rating.vote
+        } else {
+          ratingsObj.posts[rating.postId] = rating.vote
+        }
+      })
+    }
+
+    return {
       email: this.email,
-      id: this.id,
-      username: this.name,
-      updatedAt: this.updatedAt,
+      username: this.username,
+      ratings: ratingsObj,
     };
   }
 

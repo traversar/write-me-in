@@ -62,9 +62,9 @@ const Post = ({
                 <p>{post.body}</p>
                 <span>
                     <div className='sv-rating-container'>
-                        <button id={`upvote-${post.id}`} disabled={post.user.rating ? 'disabled' : ''} onClick={(e) => handleRate(e, true, post.id)}>Upvote</button>
+                        <button id={`upvote-${post.id}`} onClick={(e) => handleRate(e, true, post.id)}>Upvote</button>
                         <span id={`post-${post.id}`}>{post.rating}</span>
-                        <button id={`downvote-${post.id}`} disabled={post.user.rating ? 'disabled' : ''} onClick={(e) => handleRate(e, false, post.id)}>Downvote</button>
+                        <button id={`downvote-${post.id}`} onClick={(e) => handleRate(e, false, post.id)}>Downvote</button>
                     </div>
                 </span>
             </div>

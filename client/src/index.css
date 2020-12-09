@@ -441,6 +441,10 @@ body {
     cursor: pointer;
 }
 
+.sb-searchresult svg:hover {
+    color: black;
+}
+
 .sb-rating-container {
     align-self: end;
     display: flex;
