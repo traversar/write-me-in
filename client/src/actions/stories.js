@@ -1,3 +1,5 @@
+import * as AuthActions from './authentication'
+
 export const LOAD = 'LOAD';
 export const LOAD_USER_STORIES = 'LOAD_USER_STORIES';
 export const SEARCH = 'SEARCH';
@@ -176,6 +178,8 @@ export const getUserStories = () => async (dispatch, getState) => {
     if(response.ok) {
         const userStoryLists = await response.json();
         dispatch(loadUserStories(userStoryLists));
+    } else if (response.status === 401) {
+        dispatch(AuthActions.removeToken())
     }
 }
 

@@ -10,6 +10,10 @@ router.get('/', asyncHandler(async(req, res, next) => {
     const Op = Sequelize.Op;
 
     let specifiedUser = Boolean(req.query.user);
+    if(specifiedUser && req.cookies.token === undefined){
+        // If authentication required and auth token not sent
+        return res.sendStatus(401)
+    }
     let userId = specifiedUser ? JSON.parse(atob(req.cookies.token.split('.')[1])).data.id : null;
 
     let start = req.query.start;
@@ -33,7 +37,7 @@ router.get('/', asyncHandler(async(req, res, next) => {
             }
         })
     :
-    specifiedUser ?
+        specifiedUser ?
         [await Story.findAll({
             where: {
                 userId,
