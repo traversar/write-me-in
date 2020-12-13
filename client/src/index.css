@@ -79,6 +79,10 @@ body {
     color: white;
 }
 
+div[disabled] svg {
+    color: #d2d2d2;
+}
+
 /*//////////////////////// Header ////*/
 
 .h-container {
@@ -225,7 +229,6 @@ body {
 
 .lp-container {
     background-color: white;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
     color: black;
     margin: 10px auto;
     width: fit-content;
@@ -447,11 +450,19 @@ body {
     color: black;
 }
 
-.sb-rating-container {
+.sb-rating-container-story {
     align-self: end;
     display: flex;
     flex-direction: column;
     height: fit-content;
+    margin-right: 2px;
+}
+
+.sb-rating-container-post {
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
     margin-right: 2px;
 }
 
@@ -460,7 +471,14 @@ body {
     color: #a0b4e5;
 }
 
-.sb-rating-container span {
+.sb-rating-container-story span {
+    font-size: .5em;
+    margin: 0;
+    text-align: center;
+    color: rgb(121, 121, 121);
+}
+
+.sb-rating-container-post span {
     font-size: .5em;
     margin: 0;
     text-align: center;
@@ -576,10 +594,16 @@ body {
     position: absolute;
 }
 
+.sv-rating-container {
+    display: flex;
+    justify-content: end;
+}
+
 .sv-rating-container span {
-    margin: 0 5px;
+    margin: 0 3px;
     font-size: .7em;
     color: rgb(109, 109, 109);
+    align-self: center;
 }
 
 .sv-rating-container button {

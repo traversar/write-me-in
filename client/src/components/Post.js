@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as StoryActions from '../actions/stories'
+import Rating from './Rating'
 
 const Post = ({
     post,
@@ -11,23 +12,6 @@ const Post = ({
     storyUserId,
     ratings
 }) => {
-
-    // useEffect(() => {
-    //     console.log('here')
-    //     if(ratings) {
-    //         console.log(ratings)
-    //         for(let rating in ratings) {
-    //             if(ratings[rating] === true) {
-    //                 console.log(ratings[rating])
-    //                 let upVoteBtn = document.getElementById(`upvote-${rating}`)
-    //                 upVoteBtn.setAttribute('disabled','disabled');
-    //             } else {
-    //                 let downVoteBtn = document.getElementById(`downvote-${rating}`)
-    //                 downVoteBtn.setAttribute('disabled','disabled');
-    //             }
-    //         }
-    //     }
-    // }, [ratings])
 
     if(!ratings) {
         return null
@@ -98,9 +82,10 @@ const Post = ({
                 <p>{post.body}</p>
                 <span>
                     <div className='sv-rating-container'>
-                        <button id={`upvote-${post.id}`} disabled={checkVote(post.id) === 'upvote' ? 'disabled' : ''} onClick={(e) => handleRate(e, true, post.id)}>Upvote</button>
+                        <Rating post={post} />
+                        {/* <button id={`upvote-${post.id}`} disabled={checkVote(post.id) === 'upvote' ? 'disabled' : ''} onClick={(e) => handleRate(e, true, post.id)}>Upvote</button>
                         <span id={`post-${post.id}`}>{post.rating}</span>
-                        <button id={`downvote-${post.id}`} disabled={checkVote(post.id) === 'downvote' ? 'disabled' : ''} onClick={(e) => handleRate(e, false, post.id)}>Downvote</button>
+                        <button id={`downvote-${post.id}`} disabled={checkVote(post.id) === 'downvote' ? 'disabled' : ''} onClick={(e) => handleRate(e, false, post.id)}>Downvote</button> */}
                     </div>
                 </span>
             </div>

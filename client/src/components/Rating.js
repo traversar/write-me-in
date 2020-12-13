@@ -1,50 +1,86 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import * as StoryActions from '../actions/stories';
 import { BiUpvote, BiDownvote } from "react-icons/bi";
 
 const Rating = ({
-    rateStory,
-    story
+    contentType,
+    content,
+    ratings,
+    rate
 }) => {
 
-    const handleRate = (e, vote, storyId) => {
-        const ratingP = document.getElementById(`story-rating-${story.id}`)
+    const handleRate = (e, vote, id) => {
+        const ratingP = document.getElementById(`content-rating-${id}`)
         let ratingPNum = parseInt(ratingP.innerHTML, 10);
 
         ratingP.innerHTML = vote ? ratingPNum+1 : ratingPNum-1;
         ratingPNum = parseInt(ratingP.innerHTML, 10);
 
-        let downVoteBtn = document.getElementById(`downvote-${story.id}`);
-        let upVoteBtn = document.getElementById(`upvote-${story.id}`);
+        let downVoteBtn = document.getElementById(`downvote-${id}`);
+        let upVoteBtn = document.getElementById(`upvote-${id}`);
 
-        if (ratingPNum > story.rating) {
+        if (ratingPNum > content.rating) {
             upVoteBtn.setAttribute('disabled','disabled');
             downVoteBtn.removeAttribute('disabled');
-        } else if (ratingPNum < story.rating) {
+        } else if (ratingPNum < content.rating) {
             downVoteBtn.setAttribute('disabled','disabled');
             upVoteBtn.removeAttribute('disabled');
         } else {
             upVoteBtn.removeAttribute('disabled');
             downVoteBtn.removeAttribute('disabled');
         }
-        rateStory(vote, storyId);
+        rate(vote, id);
+    }
+
+    const checkVote = (id) => {
+        let type = contentType === "story" ? "stories" : "posts";
+        if(ratings && ratings[type]) {
+            if(id in ratings[type]) {
+                if(ratings[type][id]) {
+                    return 'upvote'
+                } else {
+                    return 'downvote'
+                }
+            }
+        }
+        return false
     }
 
     return (
-        <div className='sb-rating-container'>
-            <div id={`upvote-${story.id}`} className='sb-vote-icon' onClick={(e) => handleRate(e, true, story.id)}><BiUpvote /></div>
-            <span id={`story-rating-${story.id}`}>{story.rating}</span>
-            <div id={`downvote-${story.id}`} className='sb-vote-icon' onClick={(e) => handleRate(e, false, story.id)}><BiDownvote /></div>
+        <div className={`sb-rating-container-${contentType}`}>
+            <div
+                id={`upvote-${content.id}`}
+                className='sb-vote-icon'
+                disabled={checkVote(content.id) === 'upvote' ? 'disabled' : ''}
+                onClick={(e) => handleRate(e, true, content.id)}
+            >
+                <BiUpvote />
+            </div>
+            <span id={`content-rating-${content.id}`}>{content.rating}</span>
+            <div
+                id={`downvote-${content.id}`}
+                className='sb-vote-icon'
+                disabled={checkVote(content.id) === 'downvote' ? 'disabled' : ''}
+                onClick={(e) => handleRate(e, false, content.id)}
+            >
+                <BiDownvote />
+            </div>
         </div>
     )
 }
 
-const RatingContainer = ({ story }) => {
+const RatingContainer = ({ post, story }) => {
     const dispatch = useDispatch();
-    const rateStory = (vote, storyId) => dispatch(StoryActions.updateStoryRating(vote, storyId))
+    const ratings = useSelector(state => state.user.ratings)
 
-    return <Rating rateStory={rateStory} story={story} />
+    if(story) {
+        const rateStory = (vote, storyId) => dispatch(StoryActions.updateStoryRating(vote, storyId))
+        return <Rating rate={rateStory} content={story} contentType="story" ratings={ratings} />
+    } else {
+        const ratePost = (vote, postId) => dispatch(StoryActions.updatePostRating(vote, postId))
+        return <Rating rate={ratePost} content={post} contentType="post" ratings={ratings} />
+    }
 }
 
 export default RatingContainer;
