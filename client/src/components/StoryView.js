@@ -58,8 +58,11 @@ const StoryView = ({
             <div className='app-layout'>
                 <Navbar />
                 <div className='sv-container'>
-                    <h2>{story.title}</h2>
-                    <h3>editor: {story.user.username}</h3>
+
+                    <div className='sv-title-container'>
+                        <h2>{story.title}</h2>
+                        <h3>editor: {story.user.username}</h3>
+                    </div>
 
                     <div className='sv-pagenums'>
                         <div>
