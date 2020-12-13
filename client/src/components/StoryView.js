@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, NavLink, Link } from 'react-router-dom';
 
 import * as StoryActions from '../actions/stories';
+import * as UserActions from '../actions/user'
+
 import Post from './Post.js'
 import Header from './Header'
 import Navbar from './Navbar';
@@ -14,6 +16,7 @@ const StoryView = ({
     postsList,
     getStory,
     getPosts,
+    getRatings
 }) => {
 
     const { storyId, pageNum } = useParams();
@@ -30,6 +33,7 @@ const StoryView = ({
     useEffect(() => {
         getStory(storyId);
         getPosts(storyId);
+        getRatings()
     }, [storyId]);
 
 
@@ -108,8 +112,9 @@ const StoryViewContainer = () => {
     const story = useSelector(state => state.stories.story);
     const getPosts = (storyId, start, step) => dispatch(StoryActions.getPosts(storyId, start, step));
     const getStory = storyId => dispatch(StoryActions.getStory(storyId));
+    const getRatings = () => dispatch(UserActions.getRatings())
 
-    return <StoryView story={story} postsList={postsList} getStory={getStory} getPosts={getPosts} />
+    return <StoryView story={story} postsList={postsList} getRatings={getRatings} getStory={getStory} getPosts={getPosts} />
 }
 
 export default StoryViewContainer;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as StoryActions from '../actions/stories'
 
@@ -8,8 +8,44 @@ const Post = ({
     confirmPost,
     status,
     userId,
-    storyUserId
+    storyUserId,
+    ratings
 }) => {
+
+    // useEffect(() => {
+    //     console.log('here')
+    //     if(ratings) {
+    //         console.log(ratings)
+    //         for(let rating in ratings) {
+    //             if(ratings[rating] === true) {
+    //                 console.log(ratings[rating])
+    //                 let upVoteBtn = document.getElementById(`upvote-${rating}`)
+    //                 upVoteBtn.setAttribute('disabled','disabled');
+    //             } else {
+    //                 let downVoteBtn = document.getElementById(`downvote-${rating}`)
+    //                 downVoteBtn.setAttribute('disabled','disabled');
+    //             }
+    //         }
+    //     }
+    // }, [ratings])
+
+    if(!ratings) {
+        return null
+    }
+
+    const checkVote = (postId) => {
+        if(ratings.posts) {
+            console.log(ratings)
+            if(postId in ratings.posts) {
+                if(ratings.posts[postId]) {
+                    return 'upvote'
+                } else {
+                    return 'downvote'
+                }
+            }
+        }
+        return false
+    }
 
     const handleRate = (e, vote, postId) => {
         const ratingP = document.getElementById(`post-${post.id}`)
@@ -62,9 +98,9 @@ const Post = ({
                 <p>{post.body}</p>
                 <span>
                     <div className='sv-rating-container'>
-                        <button id={`upvote-${post.id}`} onClick={(e) => handleRate(e, true, post.id)}>Upvote</button>
+                        <button id={`upvote-${post.id}`} disabled={checkVote(post.id) === 'upvote' ? 'disabled' : ''} onClick={(e) => handleRate(e, true, post.id)}>Upvote</button>
                         <span id={`post-${post.id}`}>{post.rating}</span>
-                        <button id={`downvote-${post.id}`} onClick={(e) => handleRate(e, false, post.id)}>Downvote</button>
+                        <button id={`downvote-${post.id}`} disabled={checkVote(post.id) === 'downvote' ? 'disabled' : ''} onClick={(e) => handleRate(e, false, post.id)}>Downvote</button>
                     </div>
                 </span>
             </div>
@@ -86,9 +122,9 @@ const Post = ({
                 <p>{post.body}</p>
                 <div className='sv-rating-container'>
                     {storyUserId === userId ? <button onClick={handleConfirmPost} className='sv-confirmpost-btn'>Confirm Post</button> : ''}
-                    <button id={`upvote-${post.id}`} disabled={post.user.rating ? 'disabled' : ''} onClick={(e) => handleRate(e, true, post.id)}>Upvote</button>
+                    <button id={`upvote-${post.id}`} disabled={checkVote(post.id) === 'upvote' ? 'disabled' : ''} onClick={(e) => handleRate(e, true, post.id)}>Upvote</button>
                     <span id={`post-${post.id}`}>{post.rating}</span>
-                    <button id={`downvote-${post.id}`} disabled={post.user.rating ? 'disabled' : ''} onClick={(e) => handleRate(e, false, post.id)}>Downvote</button>
+                    <button id={`downvote-${post.id}`} disabled={checkVote(post.id) === 'downvote' ? 'disabled' : ''} onClick={(e) => handleRate(e, false, post.id)}>Downvote</button>
                 </div>
             </div>
         : null
@@ -102,6 +138,7 @@ const PostContainer = ({post, status, storyUserId}) => {
     const ratePost = (vote, postId) => dispatch(StoryActions.updatePostRating(vote, postId));
     const confirmPost = (postId) => dispatch(StoryActions.confirmPost(postId));
     const userId = useSelector(state => JSON.parse(atob(state.authentication.token.split('.')[1])).data.id);
+    const ratings = useSelector(state => state.user.ratings)
 
     return <Post
         userId={userId}
@@ -109,7 +146,8 @@ const PostContainer = ({post, status, storyUserId}) => {
         post={post}
         status={status}
         ratePost={ratePost}
-        confirmPost={confirmPost} />
+        confirmPost={confirmPost}
+        ratings={ratings} />
 }
 
 export default PostContainer;

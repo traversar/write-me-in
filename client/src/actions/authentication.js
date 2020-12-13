@@ -1,4 +1,5 @@
 const TOKEN_KEY = 'writemein/authentication/token';
+const USER_RATINGS = 'writemein/userdata/ratings'
 export const SET_TOKEN = 'SET_TOKEN';
 export const REMOVE_TOKEN = 'REMOVE_TOKEN';
 export const SET_USER_DATA = 'SET_USER_DATA';
@@ -33,6 +34,7 @@ export const login = (email, password) => async dispatch => {
         window.localStorage.setItem(TOKEN_KEY, token);
         dispatch(setToken(token));
         dispatch({ type: SET_USER_DATA, user })
+        window.localStorage.setItem(USER_RATINGS, JSON.stringify(user.ratings))
     }
 };
 
