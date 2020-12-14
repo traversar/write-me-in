@@ -32,9 +32,9 @@ export const login = (email, password) => async dispatch => {
     if(response.ok) {
         const { token, user } = await response.json();
         window.localStorage.setItem(TOKEN_KEY, token);
+        window.localStorage.setItem(USER_RATINGS, JSON.stringify(user.ratings))
         dispatch(setToken(token));
         dispatch({ type: SET_USER_DATA, user })
-        window.localStorage.setItem(USER_RATINGS, JSON.stringify(user.ratings))
     }
 };
 

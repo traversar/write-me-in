@@ -16,7 +16,6 @@ useLayoutEffect(() => {
 
 const handleReadStatus = (storyId) => {
     changeReadStatus(storyId)
-    // getUserStories();
 }
 
 const handleShowAll = () => {

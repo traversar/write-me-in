@@ -103,7 +103,7 @@ const loadStory = story => ({
 
 export const updateStoryRating = (vote, storyId) => async (dispatch, getState) => {
     const { authentication: { token } } = getState();
-    const response = await fetch(
+    await fetch(
         `/api/stories/${storyId}/?update=rating&rating=${vote}`, {
             method: 'put',
             headers: {
@@ -116,7 +116,7 @@ export const updateStoryRating = (vote, storyId) => async (dispatch, getState) =
 
 export const updatePostRating = (vote, postId) => async (dispatch, getState) => {
     const { authentication: { token } } = getState();
-    const response = await fetch(
+    await fetch(
         `/api/posts/${postId}/?rating=${vote}`, {
             method: 'put',
             headers: {
@@ -221,7 +221,6 @@ const loadPosts = posts => ({
 
 export const getPosts = (storyId, start, step) => async (dispatch, getState) => {
     const { authentication: { token } } = getState();
-    // const response = await fetch(`/api/stories/${storyId}/posts/?start=${start}&step=${step}`, {
     const response = await fetch(`/api/stories/${storyId}/posts`, {
         headers: {
             Authorization: `Bearer ${token}`,

@@ -25,7 +25,6 @@ const TagBar = ({
     return (
         <div className='tb-container'>
             <div className='tb-content-container'>
-                {/* {tagsList.map(tag => <button onClick={() => handleTagSearch(tag)} key={tag.id} className='tb-tag-link'>{tag.title}</button>)} */}
                 {tagsList.map(tag => <Link onClick={() => handleTagSearch(tag)} key={tag.id} to='/'><button className='tb-tag-link'>{tag.title}</button></Link>)}
             </div>
         </div>

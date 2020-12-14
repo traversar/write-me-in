@@ -596,7 +596,7 @@ div[disabled] svg {
 
 .sv-rating-container {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .sv-rating-container span {

@@ -6,19 +6,16 @@ import LoginPanel from './components/LoginPanel';
 import StoryBrowser from './components/StoryBrowser';
 import StoryView from './components/StoryView';
 import StoryEditor from './components/StoryEditor';
-import Header from './components/Header'
-import Navbar from './components/Navbar';
-import TagBar from './components/TagBar';
 import * as AuthActions from './actions/authentication';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
     rest.needLogin === true ?
-      <Redirect to='/login' />
-      : <Component {...props} />
+        <Redirect to='/login' />
+      :
+        <Component {...props} />
   )} />
 )
-
 
 const App = ({ needLogin, loadToken }) => {
   const [loaded, setLoaded] = useState(false);

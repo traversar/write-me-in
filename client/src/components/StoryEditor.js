@@ -9,7 +9,6 @@ import TagBar from './TagBar';
 
 
 const StoryEditor = ({
-    story,
     createPost,
     getGenres,
     genreList,
@@ -46,7 +45,6 @@ const StoryEditor = ({
 
     if(returnStoryId) {
         let returnId = returnStoryId;
-        //clear storyid here
         return <Redirect to={`/stories/${returnId}/page/-1`} />;
     }
 
@@ -87,12 +85,11 @@ const StoryEditorContainer = () => {
     const dispatch = useDispatch();
     const createPost = (bodyText, storyId, titleText, synopsisText, tagsText, genreSelect) => dispatch(StoryActions.createPost(bodyText, storyId, titleText, synopsisText, tagsText, genreSelect));
     const getGenres = () => dispatch(StoryActions.getGenres());
-    const story = useSelector(state => state.stories.story);
     const genreList = useSelector(state => state.stories.genreList);
     const newStoryId = useSelector(state => state.stories.newStoryId)
     const clearNewStoryId = () => dispatch(StoryActions.clearNewStoryId());
 
-    return <StoryEditor story={story} returnStoryId={newStoryId} clearNewStoryId={clearNewStoryId} createPost={createPost} getGenres={getGenres} genreList={genreList} />
+    return <StoryEditor returnStoryId={newStoryId} clearNewStoryId={clearNewStoryId} createPost={createPost} getGenres={getGenres} genreList={genreList} />
 }
 
 export default StoryEditorContainer;

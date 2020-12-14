@@ -1,10 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import * as AuthActions from '../actions/authentication';
 import LoginPanel from './LoginPanel'
-
 import { IoCreateOutline, IoLogOutOutline, IoLogInOutline } from "react-icons/io5";
 
 const Header = ({
@@ -19,12 +18,6 @@ const Header = ({
             logout();
         }
     }
-
-    // if (loggedOut === true) {
-    //     return <Redirect to='/login' />
-    // }
-    // Under header, create girdle of popular tags that
-    // rerenders storybrowser by tag as search would function
 
     return (
         <div className="h-container">

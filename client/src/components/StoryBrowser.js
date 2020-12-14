@@ -23,6 +23,7 @@ const StoryBrowser = ({
             getStories(start, limit);
         }
 
+        // Clear query div on element dismount
         return resetQuery()
     }, [])
 

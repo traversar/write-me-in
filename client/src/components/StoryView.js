@@ -1,6 +1,6 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, NavLink, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 import * as StoryActions from '../actions/stories';
 import * as UserActions from '../actions/user'
@@ -68,9 +68,9 @@ const StoryView = ({
                         <div>
                             {pages.map(num => (
                                 // add check condition if num is equal to query page, if so render number without link
-                                    <span key={num}>
-                                        {num === parseInt(currentPage, 10) ? <span className='sv-page-btn-selected'>{num}</span> : <span className='sv-page-btn' onClick={() => setCurrentPage(num)}>{num}</span>}
-                                    </span>
+                                <span key={num}>
+                                    {num === parseInt(currentPage, 10) ? <span className='sv-page-btn-selected'>{num}</span> : <span className='sv-page-btn' onClick={() => setCurrentPage(num)}>{num}</span>}
+                                </span>
                             ))}
                         </div>
                     </div>
@@ -79,26 +79,25 @@ const StoryView = ({
                         <div key={post.id}>
                         {post.order <= story.confirmedPostLength ?
                             post.confirmationStatus ?
-                            <Post post={post} status='confirmed' />
+                                <Post post={post} status='confirmed' />
                             :
-                            <Post post={post} status='rejected' />
+                                <Post post={post} status='rejected' />
                         :
-                        <Post storyUserId={story.user.id} post={post} status='unconfirmed' />
+                            <Post storyUserId={story.user.id} post={post} status='unconfirmed' />
                         }
                         </div>
                     ))}
 
                     <div className='sv-writenext-btn-container'>
-                    <Link to={`/write/${story.id}`}><button className='sv-writenext-btn'>Write Next Post</button></Link>
+                        <Link to={`/write/${story.id}`}><button className='sv-writenext-btn'>Write Next Post</button></Link>
                     </div>
 
                     <div className='sv-pagenums'>
                         <div>
                             {pages.map(num => (
-                                // add check condition if num is equal to query page, if so render number without link
-                                    <span key={num}>
-                                        {num === parseInt(currentPage, 10) ? <span className='sv-page-btn-selected'>{num}</span> : <span className='sv-page-btn' onClick={() => setCurrentPage(num)}>{num}</span>}
-                                    </span>
+                                <span key={num}>
+                                    {num === parseInt(currentPage, 10) ? <span className='sv-page-btn-selected'>{num}</span> : <span className='sv-page-btn' onClick={() => setCurrentPage(num)}>{num}</span>}
+                                </span>
                             ))}
                         </div>
                     </div>

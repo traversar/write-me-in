@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as StoryActions from '../actions/stories'
 import Rating from './Rating'
@@ -19,7 +19,6 @@ const Post = ({
 
     const checkVote = (postId) => {
         if(ratings.posts) {
-            console.log(ratings)
             if(postId in ratings.posts) {
                 if(ratings.posts[postId]) {
                     return 'upvote'
@@ -83,9 +82,6 @@ const Post = ({
                 <span>
                     <div className='sv-rating-container'>
                         <Rating post={post} />
-                        {/* <button id={`upvote-${post.id}`} disabled={checkVote(post.id) === 'upvote' ? 'disabled' : ''} onClick={(e) => handleRate(e, true, post.id)}>Upvote</button>
-                        <span id={`post-${post.id}`}>{post.rating}</span>
-                        <button id={`downvote-${post.id}`} disabled={checkVote(post.id) === 'downvote' ? 'disabled' : ''} onClick={(e) => handleRate(e, false, post.id)}>Downvote</button> */}
                     </div>
                 </span>
             </div>
@@ -107,9 +103,7 @@ const Post = ({
                 <p>{post.body}</p>
                 <div className='sv-rating-container'>
                     {storyUserId === userId ? <button onClick={handleConfirmPost} className='sv-confirmpost-btn'>Confirm Post</button> : ''}
-                    <button id={`upvote-${post.id}`} disabled={checkVote(post.id) === 'upvote' ? 'disabled' : ''} onClick={(e) => handleRate(e, true, post.id)}>Upvote</button>
-                    <span id={`post-${post.id}`}>{post.rating}</span>
-                    <button id={`downvote-${post.id}`} disabled={checkVote(post.id) === 'downvote' ? 'disabled' : ''} onClick={(e) => handleRate(e, false, post.id)}>Downvote</button>
+                    <Rating post={post} />
                 </div>
             </div>
         : null
