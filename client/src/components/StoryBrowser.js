@@ -9,8 +9,11 @@ import TagBar from './TagBar';
 
 import { IoCloseCircle } from "react-icons/io5";
 
+import * as UserActions from '../actions/user';
+
 const StoryBrowser = ({
     getStories,
+    getRatings,
     storyList,
     query,
     clearQuery
@@ -19,6 +22,8 @@ const StoryBrowser = ({
     const limit = 10;
 
     useEffect(() => {
+        getRatings();
+
         if(!query) {
             getStories(start, limit);
         }
@@ -88,11 +93,13 @@ const StoryBrowserContainer = () => {
     const getStories = (start, limit) => dispatch(StoryActions.getStories(start, limit));
     const query = useSelector(state => state.stories.query);
     const clearQuery = () => dispatch(StoryActions.clearQuery());
+    const getRatings = () => dispatch(UserActions.getRatings());
 
     return (
         <StoryBrowser
             storyList={storyList}
             getStories={getStories}
+            getRatings={getRatings}
             query={query}
             clearQuery={clearQuery} />
     )

@@ -44,24 +44,6 @@ router.get('/:tagId', asyncHandler(async(req, res, next) => {
         return storyTag.story
     })
 
-    // const tag = await Tag.findOne({
-    //     where: { id: tagId }
-    // })
-
-    // console.log(tag);
-
-    // const stories = await Story.findAll({
-    //     include: { model: Tag, as: 'tags'},
-    //     where: { tag: tag }
-    // })
-
-    // const StoryTags = findAll({
-    //     where: { tagId },
-    //     include: { model: Story, as: 'story' }
-    // })
-
-
-
     if (stories) {
         res.json(stories)
     } else {

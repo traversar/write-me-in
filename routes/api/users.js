@@ -71,7 +71,6 @@ router.put('/', [signinValidators], asyncHandler(async(req, res, next) => {
 
     const { email, password } = req.body;
     const user = await User.findOne({ where: { email }, include: { model: Rating, as: 'ratings' } });
-    // if(user !== null) {
     const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
         if(passwordMatch) {
             const{ jti, token } = generateToken(user);
@@ -86,7 +85,6 @@ router.put('/', [signinValidators], asyncHandler(async(req, res, next) => {
             err.errors = ['Invalid credentials'];
             return next(err);
         }
-    // }
 }));
 
 router.delete('/', [authenticated], asyncHandler(async(req, res) => {
@@ -99,7 +97,6 @@ router.delete('/', [authenticated], asyncHandler(async(req, res) => {
 router.post('/', [signupValidators], asyncHandler(async(req, res, next) => {
     const validatorErrors = validationResult(req)
     if(!validatorErrors.isEmpty()) {
-        console.log(validatorErrors.array());
         return next({ status: 422, errors: validatorErrors.array() });
     }
 
@@ -109,19 +106,17 @@ router.post('/', [signupValidators], asyncHandler(async(req, res, next) => {
         password
     } = req.body;
 
-    // if(validatorErrors.isEmpty()) {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.create({
-            username,
-            email,
-            hashedPassword
-        });
-        const{ jti, token } = generateToken(user);
-        user.tokenId = jti;
-        await user.save();
-        res.cookie('token', token);
-        res.json({ token, user: user.toSafeObject() });
-    // }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await User.create({
+        username,
+        email,
+        hashedPassword
+    });
+    const{ jti, token } = generateToken(user);
+    user.tokenId = jti;
+    await user.save();
+    res.cookie('token', token);
+    res.json({ token, user: user.toSafeObject() });
 }));
 
 module.exports = router;

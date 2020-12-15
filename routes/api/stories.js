@@ -61,8 +61,6 @@ router.get('/', asyncHandler(async(req, res, next) => {
             ]
         })
 
-        if(search) console.log(stories);
-
     if(stories) {
         res.json(stories);
     } else {

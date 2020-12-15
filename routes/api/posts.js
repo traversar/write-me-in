@@ -8,7 +8,6 @@ router.put('/:postId/', asyncHandler(async(req, res, next) => {
     const userId = JSON.parse(atob(req.cookies.token.split('.')[1])).data.id
     const postId = req.params.postId;
     const vote = req.query.rating === 'true' ? true : false;
-    console.log('typeof vote: ', typeof vote)
     const confirm = req.query.confirm;
 
     let post = await Post.findOne({
@@ -23,16 +22,13 @@ router.put('/:postId/', asyncHandler(async(req, res, next) => {
         })
 
         if(existingRating) {
-            console.log('existingRating.vote: ', existingRating.vote, 'existingRating.vote == vote: ', existingRating.vote == vote )
             if(existingRating.vote == vote) {
-                console.log('in conditional')
                 return res.sendStatus(403)
             }
-            post.rating = existingRating.vote === true ? post.rating-2 : post.rating+2;
-            existingRating.vote = existingRating.vote === true ? false : true;
-            await existingRating.save();
+            post.rating = existingRating.vote === true ? post.rating-1 : post.rating+1;
+            await existingRating.destroy();
         } else {
-            //If not existing rating, make record that user has rated post
+            // If not existing rating, make record that user has rated post
             await Rating.create({
                 userId,
                 postId,
@@ -42,7 +38,7 @@ router.put('/:postId/', asyncHandler(async(req, res, next) => {
         }
 
         if (post.rating >= 10) {
-            //Check if new rating is enough (>=10) to confirm post
+            // Check if new rating is sufficient (>=10) to confirm post
             const story = await Story.findOne({
                 where: { id: post.storyId }
             })
@@ -77,8 +73,6 @@ router.post('/', asyncHandler(async(req, res, next) => {
         genreId
     } = req.body;
 
-    console.log(storyId)
-
     if (storyId) {
         let story = await Story.findOne({
             where: { id: storyId }
@@ -105,7 +99,7 @@ router.post('/', asyncHandler(async(req, res, next) => {
             confirmedPostLength: 1,
         })
 
-        let newPost = await Post.create({
+        await Post.create({
             userId,
             storyId: newStory.id,
             body,
