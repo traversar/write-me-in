@@ -50,6 +50,7 @@ const LoginPanel = ({ token, login, signup }) => {
                             value={password}
                             onChange={updatePassword} />
                         <button type='submit'>Login</button>
+                        <span style={{fontSize: '0.7em', textAlign: 'center'}}>(Leave fields blank for demo user)</span>
                     </form>
                 </div>
                 <p>-OR-</p>
