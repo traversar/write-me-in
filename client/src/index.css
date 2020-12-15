@@ -47,27 +47,16 @@ body {
     font-family: Arial;
     font-weight: 800;
     font-size: 2.2em;
-    /* color: rgb(78, 78, 78); */
-    /* color: rgb(139, 139, 150); */
-    /* color: rgb(177, 196, 219); */
-    /* color: rgb(177, 196, 229); */
     color: rgb(160, 180, 229);
     font-weight: 700;
     text-align: center;
     margin: 0;
     padding: 0 0 0 0;
-    /* text-shadow: 3px 4px 4px rgba(172, 172, 172, 0.3); */
-    /* text-shadow: -1px -1px 0 rgb(153, 153, 153); */
-
-    /* font-family: arial;
-    -webkit-text-stroke: 2px rgb(162, 179, 199);
-    color: white; */
 }
 
-/* .site-title-me {
-    color: white;
-    font-family: arial;
-} */
+.site-title:hover {
+    color: rgb(175, 191, 230);
+}
 
 .blur-element {
     background-image: linear-gradient(to top, transparent, white);
@@ -291,6 +280,7 @@ div[disabled] svg {
     position: sticky;
     position: -webkit-sticky;
     top: 75px;
+    width: 260px;
 }
 
 .nb-container h2 {
@@ -371,6 +361,10 @@ div[disabled] svg {
 
 /*//////////////////////// Story Browser ////*/
 
+.sb-browser {
+    width: 100%;
+}
+
 .sb-page-layout {
     margin: 0 auto;
     display: flex;
@@ -380,7 +374,7 @@ div[disabled] svg {
 .sb-story-navcontainer {
     margin: 0 0 10px;
     padding: 10px 10px;
-    width: 650px;
+    width: 100%;
     background-color: white;
     color: black;
     text-decoration: none;
