@@ -27,7 +27,7 @@ const Header = ({
                         <h1 style={{cursor: 'pointer', textDecoration: 'none'}} className="site-title">write.<span className='site-title-me'>me</span>.in</h1>
                     </Link>
                 </div>
-                <div className='.h-searchbar'>
+                <div className='h-searchbar'>
                     <SearchBar />
                 </div>
                 <div className='h-btns'>
