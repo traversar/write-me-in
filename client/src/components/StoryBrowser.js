@@ -66,6 +66,7 @@ const StoryBrowser = ({
                                         <div>
                                             <p className='sb-story-title'>{story.title}</p>
                                             <p className='sb-author-text'> by {story.user.username}</p>
+                                            <p className='sb-genre-text'> ({story.genre.genreName})</p>
                                         </div>
                                         <div className='sb-details-contributors'>
                                             {story.contributors.length > 0 && <p className='sb-contributors-text'>and contributors
@@ -73,7 +74,6 @@ const StoryBrowser = ({
                                             </p>}
                                         </div>
                                         <div className='sb-details-genre-syn'>
-                                            <p className='sb-genre-text'>({story.genre.genreName}) </p>
                                             <p className='sb-synopsis-text'>{` ${story.synopsis}`}</p>
                                         </div>
                                     </div>

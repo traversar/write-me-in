@@ -29,8 +29,6 @@ $salmon-pink: rgba(239, 149, 156, 1);
     flex-direction: row;
     font-family: Optima, Helvetica;
     font-size: 25px;
-    /* width: 960px; */
-    max-width: 1200px;
     margin: 0;
 }
 
@@ -353,7 +351,7 @@ div[disabled] svg {
 
 .sb-browser {
     width: 100%;
-    margin: 10px 0 0 0;
+    margin: 10px 10px 0 0;
 }
 
 .sb-page-layout {
@@ -418,7 +416,7 @@ div[disabled] svg {
     margin-bottom: 10px;
     padding: 5px;
     border-radius: 5px;
-    font-size: .8em;
+    font-size: .75em;
     color: #606066;
     width: 100%;
     box-sizing: border-box;
@@ -436,11 +434,11 @@ div[disabled] svg {
 }
 
 .sb-rating-container-story {
-    align-self: end;
+    align-self: center;
     display: flex;
     flex-direction: column;
     height: fit-content;
-    margin-right: 2px;
+    margin-right: 5px;
 }
 
 .sb-rating-container-post {
@@ -491,23 +489,27 @@ div[disabled] svg {
 .sb-story-title {
     font-size: .85em;
     font-weight: 600;
+    font-style: italic;
 }
 
 .sb-genre-text {
-    font-size: .5em;
+    font-size: .6em;
     font-weight: 600;
+    color: #818181;
 }
 
 .sb-author-text {
-    font-size: .9em;
+    font-size: .8em;
 
 }
 .sb-contributors-text {
-    font-size: .65em
+    font-size: .65em;
+    color: black;
 }
 
 .sb-synopsis-text {
     font-size: .7em;
+    color: #818181;
 }
 
 
