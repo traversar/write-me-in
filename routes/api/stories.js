@@ -122,13 +122,35 @@ router.put('/:storyId', asyncHandler(async(req, res, next) => {
     }
 
     if(update === 'rating') {
-        const { vote } = req.query;
+        const userId = JSON.parse(atob(req.cookies.token.split('.')[1])).data.id
+        const vote = req.query.rating === 'true' ? true : false;
         const { storyId } = req.params;
         const story = await Story.findOne({
             where: { id: storyId },
         })
 
-        story.rating = vote === true ? story.rating+1 : story.rating-1;
+        let existingRating = await Rating.findOne({
+            where: { userId, storyId }
+        })
+
+        if(existingRating) {
+            if(existingRating.vote == vote) {
+                console.log(existingRating.vote)
+                console.log(vote)
+                return res.sendStatus(403)
+            }
+            story.rating = existingRating.vote === true ? story.rating-1 : story.rating+1;
+            await existingRating.destroy();
+        } else {
+            // If not existing rating, make record that user has rated story
+            await Rating.create({
+                userId,
+                storyId,
+                vote
+            })
+            story.rating = vote === true ? story.rating+1 : story.rating-1;
+        }
+
         await story.save();
         res.sendStatus(200)
     }

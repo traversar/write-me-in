@@ -23,6 +23,7 @@ const StoryBrowser = ({
 
     useEffect(() => {
         getRatings();
+        console.log('Get Ratings ()')
 
         if(!query) {
             getStories(start, limit);

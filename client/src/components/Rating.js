@@ -9,6 +9,7 @@ const Rating = ({
     ratings,
     rate
 }) => {
+    console.log(ratings)
 
     const handleRate = (e, vote, id) => {
         if(e.currentTarget.hasAttribute('disabled')) return;
