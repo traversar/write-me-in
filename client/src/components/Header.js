@@ -31,10 +31,10 @@ const Header = ({
                     <SearchBar />
                 </div>
                 <div className='h-btns'>
-                    <Link to='/write'>
+                    <Link title='Write' to='/write'>
                         <button className='h-writenew-btn'><IoCreateOutline /></button>
                     </Link>
-                    <button className='h-logout-btn' onClick={handleLoginLogout}>{loggedOut ? <IoLogInOutline /> : <IoLogOutOutline />}</button>
+                    <button className='h-logout-btn' title='Logout' onClick={handleLoginLogout}>{loggedOut ? <IoLogInOutline /> : <IoLogOutOutline />}</button>
                 </div>
             </div>
         </div>

@@ -11,6 +11,7 @@ const Rating = ({
 }) => {
 
     const handleRate = (e, vote, id) => {
+        if(e.currentTarget.hasAttribute('disabled')) return;
         const ratingP = document.getElementById(`content-rating-${id}`)
         let ratingPNum = parseInt(ratingP.innerHTML, 10);
 
