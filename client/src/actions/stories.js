@@ -11,6 +11,9 @@ export const LOAD_GENRES = 'LOAD_GENRES';
 export const GET_NEW_ID = 'GET_NEW_ID';
 export const CLEAR_NEW_ID = 'CLEAR_NEW_ID';
 export const CLEAR_QUERY = 'CLEAR_QUERY';
+export const UPDATE_RATINGS = 'UPDATE_RATINGS';
+const USER_RATINGS = 'writemein/userdata/ratings'
+
 
 export const createPost = (body, storyId, title, synopsis, tags, genreId) => async(dispatch, getState) => {
     console.log(genreId)
@@ -101,9 +104,16 @@ const loadStory = story => ({
     story
 })
 
+const updateRating = (vote, contentId, contentType) => ({
+    type: UPDATE_RATINGS,
+    vote,
+    contentId,
+    contentType
+})
+
 export const updateStoryRating = (vote, storyId) => async (dispatch, getState) => {
     const { authentication: { token } } = getState();
-    await fetch(
+    const response = await fetch(
         `/api/stories/${storyId}/?update=rating&rating=${vote}`, {
             method: 'put',
             headers: {
@@ -112,11 +122,21 @@ export const updateStoryRating = (vote, storyId) => async (dispatch, getState) =
             }
         }
     )
+    if (response.ok) {
+        dispatch(updateRating(vote, storyId, 'stories'));
+        dispatch(updateStoredRatings());
+    }
+}
+
+const updateStoredRatings = () => async (dispatch, getState) => {
+        const ratings = getState().user.ratings
+        localStorage.removeItem(USER_RATINGS)
+        localStorage.setItem(USER_RATINGS, JSON.stringify(ratings))
 }
 
 export const updatePostRating = (vote, postId) => async (dispatch, getState) => {
     const { authentication: { token } } = getState();
-    await fetch(
+    const response = await fetch(
         `/api/posts/${postId}/?rating=${vote}`, {
             method: 'put',
             headers: {
@@ -125,6 +145,10 @@ export const updatePostRating = (vote, postId) => async (dispatch, getState) => 
             }
         }
     )
+    if (response.ok) {
+        dispatch(updateRating(vote, postId, 'posts'));
+        dispatch(updateStoredRatings());
+    }
 }
 
 export const confirmPost = postId => async (dispatch, getState) => {

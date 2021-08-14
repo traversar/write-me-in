@@ -1,13 +1,15 @@
-import {
-    SET_USER_DATA,
-    REMOVE_USER_DATA
-} from '../actions/authentication';
+import { SET_USER_DATA, REMOVE_USER_DATA } from '../actions/authentication';
+import { SET_RATINGS } from '../actions/user'
+import { UPDATE_RATINGS } from '../actions/stories'
 
-import {
-    SET_RATINGS
-} from '../actions/user'
+const stateDefault = {
+    ratings: {
+        stories: {},
+        posts: {}
+    }
+}
 
-const userReducer = (state = {}, action) => {
+const userReducer = (state = stateDefault, action) => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -15,12 +17,20 @@ const userReducer = (state = {}, action) => {
                 ratings: action.user.ratings
             }
         case REMOVE_USER_DATA:
-            return {};
+            return { ...stateDefault };
         case SET_RATINGS:
             return {
                 ...state,
                 ratings: action.ratings
             }
+        case UPDATE_RATINGS:
+            const newState = {...state};
+            if (newState.ratings[action.contentType][action.contentId] !== undefined) {
+                delete newState.ratings[action.contentType][action.contentId]
+            } else {
+                newState.ratings[action.contentType][action.contentId] = action.vote
+            }
+            return newState
         default: return state;
     }
 }

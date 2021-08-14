@@ -13,7 +13,7 @@ import * as UserActions from '../actions/user';
 
 const StoryBrowser = ({
     getStories,
-    getRatings,
+    refreshRatings,
     storyList,
     query,
     clearQuery
@@ -22,8 +22,7 @@ const StoryBrowser = ({
     const limit = 10;
 
     useEffect(() => {
-        getRatings();
-        console.log('Get Ratings ()')
+        refreshRatings();
 
         if(!query) {
             getStories(start, limit);
@@ -94,13 +93,13 @@ const StoryBrowserContainer = () => {
     const getStories = (start, limit) => dispatch(StoryActions.getStories(start, limit));
     const query = useSelector(state => state.stories.query);
     const clearQuery = () => dispatch(StoryActions.clearQuery());
-    const getRatings = () => dispatch(UserActions.getRatings());
+    const refreshRatings = () => dispatch(UserActions.refreshRatings());
 
     return (
         <StoryBrowser
             storyList={storyList}
             getStories={getStories}
-            getRatings={getRatings}
+            refreshRatings={refreshRatings}
             query={query}
             clearQuery={clearQuery} />
     )

@@ -5,53 +5,11 @@ import Rating from './Rating'
 
 const Post = ({
     post,
-    ratePost,
     confirmPost,
     status,
     userId,
-    storyUserId,
-    ratings
+    storyUserId
 }) => {
-
-    if(!ratings) {
-        return null
-    }
-
-    const checkVote = (postId) => {
-        if(ratings.posts) {
-            if(postId in ratings.posts) {
-                if(ratings.posts[postId]) {
-                    return 'upvote'
-                } else {
-                    return 'downvote'
-                }
-            }
-        }
-        return false
-    }
-
-    const handleRate = (e, vote, postId) => {
-        const ratingP = document.getElementById(`post-${post.id}`)
-        let ratingPNum = parseInt(ratingP.innerHTML, 10);
-
-        ratingP.innerHTML = vote ? ratingPNum+1 : ratingPNum-1;
-        ratingPNum = parseInt(ratingP.innerHTML, 10);
-
-        let downVoteBtn = document.getElementById(`downvote-${post.id}`);
-        let upVoteBtn = document.getElementById(`upvote-${post.id}`);
-
-        if (ratingPNum > post.rating) {
-            upVoteBtn.setAttribute('disabled','disabled');
-            downVoteBtn.removeAttribute('disabled');
-        } else if (ratingPNum < post.rating) {
-            downVoteBtn.setAttribute('disabled','disabled');
-            upVoteBtn.removeAttribute('disabled');
-        } else {
-            upVoteBtn.removeAttribute('disabled');
-            downVoteBtn.removeAttribute('disabled');
-        }
-        ratePost(vote, postId);
-    }
 
     const toggleHiddenPost = e => {
         const targetPost = e.target.parentNode.nextSibling;
@@ -114,19 +72,15 @@ const Post = ({
 
 const PostContainer = ({post, status, storyUserId}) => {
     const dispatch = useDispatch();
-    const ratePost = (vote, postId) => dispatch(StoryActions.updatePostRating(vote, postId));
     const confirmPost = (postId) => dispatch(StoryActions.confirmPost(postId));
     const userId = useSelector(state => JSON.parse(atob(state.authentication.token.split('.')[1])).data.id);
-    const ratings = useSelector(state => state.user.ratings)
 
     return <Post
         userId={userId}
         storyUserId={storyUserId}
         post={post}
         status={status}
-        ratePost={ratePost}
-        confirmPost={confirmPost}
-        ratings={ratings} />
+        confirmPost={confirmPost} />
 }
 
 export default PostContainer;

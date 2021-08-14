@@ -9,26 +9,29 @@ const Rating = ({
     ratings,
     rate
 }) => {
-    console.log(ratings)
+
 
     const handleRate = (e, vote, id) => {
         if(e.currentTarget.hasAttribute('disabled')) return;
         const ratingP = document.getElementById(`content-rating-${id}`)
         let ratingPNum = parseInt(ratingP.innerHTML, 10);
 
-        ratingP.innerHTML = vote ? ratingPNum+1 : ratingPNum-1;
-        ratingPNum = parseInt(ratingP.innerHTML, 10);
+        ratingPNum = vote ? ratingPNum+1 : ratingPNum-1;
+        ratingP.innerHTML = ratingPNum
 
         let downVoteBtn = document.getElementById(`downvote-${id}`);
         let upVoteBtn = document.getElementById(`upvote-${id}`);
 
-        if (ratingPNum > content.rating) {
+        // If no existing vote and upvote, disable upvote button
+        if (checkVote(id) === null && vote) {
             upVoteBtn.setAttribute('disabled','disabled');
             downVoteBtn.removeAttribute('disabled');
-        } else if (ratingPNum < content.rating) {
+        // If no existing vote and downvote, disable downvote button
+        } else if (checkVote(id) === null && !vote) {
             downVoteBtn.setAttribute('disabled','disabled');
             upVoteBtn.removeAttribute('disabled');
         } else {
+        // Otherwise, user has nullified a previous vote, enable both
             upVoteBtn.removeAttribute('disabled');
             downVoteBtn.removeAttribute('disabled');
         }
@@ -39,14 +42,14 @@ const Rating = ({
         let type = contentType === "story" ? "stories" : "posts";
         if(ratings && ratings[type]) {
             if(id in ratings[type]) {
-                if(ratings[type][id]) {
+                if(ratings[type][id] === true) {
                     return 'upvote'
-                } else {
+                } else if (ratings[type][id] === false) {
                     return 'downvote'
                 }
             }
+            return null
         }
-        return false
     }
 
     return (

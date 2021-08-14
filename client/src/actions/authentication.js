@@ -30,6 +30,7 @@ export const login = (email, password) => async dispatch => {
     });
 
     if(response.ok) {
+        console.log('login')
         const { token, user } = await response.json();
         window.localStorage.setItem(TOKEN_KEY, token);
         window.localStorage.setItem(USER_RATINGS, JSON.stringify(user.ratings))
