@@ -70,12 +70,14 @@ const StoryView = ({
 
                     <div className='sv-pagenums'>
                         <div>
+                            <span className='sv-page-btn' onClick={() => setCurrentPage(current => current > 1 ? current-1 : current)}>{'<'}</span>
                             {pages.map(num => (
                                 // add check condition if num is equal to query page, if so render number without link
                                 <span key={num}>
                                     {num === parseInt(currentPage, 10) ? <span className='sv-page-btn-selected'>{num}</span> : <span className='sv-page-btn' onClick={() => setCurrentPage(num)}>{num}</span>}
                                 </span>
                             ))}
+                            <span className='sv-page-btn' onClick={() => setCurrentPage(current => current < pages.length ? current+1 : current)}>{'>'}</span>
                         </div>
                     </div>
 
@@ -98,11 +100,13 @@ const StoryView = ({
 
                     <div className='sv-pagenums'>
                         <div>
+                        <span className='sv-page-btn' onClick={() => setCurrentPage(current => current > 1 ? current-1 : current)}>{'<'}</span>
                             {pages.map(num => (
                                 <span key={num}>
                                     {num === parseInt(currentPage, 10) ? <span className='sv-page-btn-selected'>{num}</span> : <span className='sv-page-btn' onClick={() => setCurrentPage(num)}>{num}</span>}
                                 </span>
                             ))}
+                        <span className='sv-page-btn' onClick={() => setCurrentPage(current => current < pages.length ? current+1 : current)}>{'>'}</span>
                         </div>
                     </div>
 

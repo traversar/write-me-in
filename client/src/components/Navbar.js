@@ -42,7 +42,7 @@ if(!userStoriesList || !userContributionsList) {
                                 </NavLink>
                         )
                     })}
-                    <button className='nb-showall-btn' onClick={handleShowAll} >(Show All)</button>
+                    {/* <button className='nb-showall-btn' onClick={handleShowAll} >(Show All)</button> */}
                 </div>
                 <div className='nb-container'>
                     <h2>My Contributions</h2>
@@ -53,7 +53,7 @@ if(!userStoriesList || !userContributionsList) {
                             </NavLink>
                         )
                     })}
-                    <button className='nb-showall-btn' onClick={handleShowAll} >(Show All)</button>
+                    {/* <button className='nb-showall-btn' onClick={handleShowAll} >(Show All)</button> */}
                 </div>
             </div>
         </div>
