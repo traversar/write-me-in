@@ -25,7 +25,8 @@ $salmon-pink: rgba(239, 149, 156, 1);
 } */
 
 .app-layout {
-    display: flex;
+    display: grid;
+    grid-template-columns: min-content 1fr;
     flex-direction: row;
     font-family: Optima, Helvetica;
     font-size: 25px;
@@ -103,9 +104,10 @@ div[disabled] svg {
     background-color: white;
 }
 
-/* .h-title {
-    flex-grow: 1;
-} */
+.h-content-container button:hover {
+    background: rgb(236, 231, 255);
+    color: rgb(122, 122, 122);
+}
 
 .h-searchbar {
     font-size: .89em;
@@ -269,7 +271,6 @@ div[disabled] svg {
     position: sticky;
     position: -webkit-sticky;
     top: 60px;
-    width: 260px;
     background-color: white;
     margin: 0 10px 0 0;
     border-radius: 0 0 10px;
@@ -296,13 +297,15 @@ div[disabled] svg {
 
 .nb-container a {
     text-decoration: none;
-    color: #551a8b;
+    color: #6276a7;
     font-size: .85em;
 }
 
-.nb-container a:hover {
+/* .nb-container a:hover {
     color: rgb(122, 122, 122);
-}
+    background-color: #e8e8ff;
+    border-radius: 4px;
+} */
 
 /* .nb-container h2 {
     font-size: 1em;
@@ -315,7 +318,13 @@ div[disabled] svg {
     font-family: Georgia;
     font-weight: 400;
     padding: 0;
-    margin: 0;
+    margin: 0 0 0 .3em;
+}
+
+.nb-container h3:hover {
+    color: rgb(122, 122, 122);
+    background-color: #e8e8ff;
+    border-radius: 4px;
 }
 
 .nb-showall-btn {
@@ -350,7 +359,7 @@ div[disabled] svg {
 /*//////////////////////// Story Browser ////*/
 
 .sb-browser {
-    width: 100%;
+    /* width: 100%; */
     margin: 10px 10px 0 0;
 }
 
@@ -361,7 +370,7 @@ div[disabled] svg {
 }
 
 .sb-story-navcontainer {
-    margin: 0 0 10px;
+    margin: 0 10px 10px 0;
     padding: 10px 10px;
     width: 100%;
     background-color: white;
@@ -449,6 +458,10 @@ div[disabled] svg {
     margin-right: 2px;
 }
 
+.sb-vote-icon {
+    cursor: pointer;
+}
+
 .sb-vote-icon svg {
     height: .7em;
     color: #a0b4e5;
@@ -517,7 +530,7 @@ div[disabled] svg {
 
 .sv-post {
     padding: 0 20px 15px;
-    margin-top: 15px;
+    margin: 15px 10px 0 0;
 }
 
 .sv-post h3 {
@@ -554,7 +567,10 @@ div[disabled] svg {
 }
 
 .sv-title-container {
-    margin: 0 0 10px 20px;
+    background: white;
+    margin: 0 10px 10px 0;
+    padding: 20px;
+    border-radius: 5px;
 }
 
 .sv-post-unconfirmed {
@@ -651,4 +667,13 @@ div[disabled] svg {
 
 .se-body-textarea {
     height: 400px;
+}
+
+.se-container h2 {
+    font-family: georgia;
+    background: white;
+    margin: 10px 0;
+    padding: 4px;
+    border-radius: 5px;
+    color: #535353;
 }

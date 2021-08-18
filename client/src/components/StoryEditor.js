@@ -60,9 +60,9 @@ const StoryEditor = ({
                 <div className='se-container'>
                     {(storyId !== undefined ?
                         <div>
-                        <h2>Contribute</h2>
-                        <textarea className='se-body-textarea'onChange={handleBodyInput} placeholder='And then...' value={bodyText} />
-                        <button onClick={handlePost} value={bodyText}>Post</button>
+                            <h2>Contribute</h2>
+                            <textarea className='se-body-textarea'onChange={handleBodyInput} placeholder='And then...' value={bodyText} />
+                            <button onClick={handlePost} value={bodyText}>Post</button>
                         </div>
                     :
                         <div>
