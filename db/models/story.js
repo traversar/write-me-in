@@ -4,7 +4,10 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
     genreId: DataTypes.INTEGER,
     title: DataTypes.STRING,
-    synopsis: DataTypes.TEXT,
+    synopsis: {
+      type: DataTypes.TEXT,
+      len: [0, 500]
+    },
     rating: DataTypes.INTEGER,
     read: DataTypes.BOOLEAN,
     confirmedPostLength: DataTypes.INTEGER

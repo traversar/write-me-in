@@ -36,7 +36,7 @@ const StoryEditor = ({
             createPost(bodyText, storyId);
         } else {
             if (synopsisText === null) {
-                setSynopsisText(bodyText.slice(0, 500))
+                setSynopsisText(bodyText.substring(0, 497) + '...')
             }
             createPost(bodyText, null, titleText, synopsisText, tagsText, genreSelect)
         }
