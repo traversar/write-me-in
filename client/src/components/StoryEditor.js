@@ -12,7 +12,8 @@ const StoryEditor = ({
     createPost,
     getGenres,
     genreList,
-    returnStoryId
+    returnStoryId,
+    clearNewStoryId
 }) => {
     const [bodyText, setBodyText] = useState();
     const [titleText, setTitleText] = useState();
@@ -29,15 +30,14 @@ const StoryEditor = ({
 
     useEffect(() => {
         getGenres()
+
+        return clearNewStoryId
     }, [])
 
     const handlePost = e => {
         if (storyId !== undefined) {
             createPost(bodyText, storyId);
         } else {
-            if (synopsisText === null) {
-                setSynopsisText(bodyText.substring(0, 497) + '...')
-            }
             createPost(bodyText, null, titleText, synopsisText, tagsText, genreSelect)
         }
     }

@@ -16,7 +16,9 @@ const USER_RATINGS = 'writemein/userdata/ratings'
 
 
 export const createPost = (body, storyId, title, synopsis, tags, genreId) => async(dispatch, getState) => {
-    console.log(genreId)
+    if(!storyId && !synopsis) {
+        synopsis = body.substring(0, 494) + ' [...]'
+    }
     const { authentication: { token } } = getState();
     const response = await fetch(
         `/api/posts/`, {
