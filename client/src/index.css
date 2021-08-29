@@ -41,6 +41,14 @@ body {
 
 }
 
+button {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+    cursor: pointer;
+}
+
 .site-title {
     font-family: Arial;
     font-weight: 800;
@@ -640,6 +648,10 @@ div[disabled] svg {
     padding: 0 3px;
     background-color: white;
     cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
 }
 
 .sv-page-btn-selected {
