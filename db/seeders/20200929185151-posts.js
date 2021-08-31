@@ -399,6 +399,8 @@ module.exports = {
       r({userId: 6, storyId: 12, body: piperPhilipDick.post4, rating: 10, order: 4, confirmationStatus: true}),
       r({userId: 3, storyId: 12, body: piperPhilipDick.post5, rating: 15, order: 5, confirmationStatus: true}),
       r({userId: 4, storyId: 12, body: piperPhilipDick.post6, rating: 16, order: 6, confirmationStatus: false}),
+
+      r({userId: 1, storyId: 13, body: 'We went into the back, around the gate, where the door was always opened, and people like ourselves tended to aggregate. As we cleared the ancient stone wall I looked at the place where, as a seven year-old, trying to balance along the edge, I fell from my lofty notions and came to understand pain and defeat on the rocky mound below. ', rating: 4, order: 1, confirmationStatus: true}),
     ]);
   },
 
