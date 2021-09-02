@@ -6,6 +6,7 @@ import LoginPanel from './components/LoginPanel';
 import StoryBrowser from './components/StoryBrowser';
 import StoryView from './components/StoryView';
 import StoryEditor from './components/StoryEditor';
+import About from './components/About'
 import * as AuthActions from './actions/authentication';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -55,6 +56,10 @@ const App = ({ needLogin, loadToken }) => {
             exact
             needLogin={needLogin}
             component={StoryEditor} />
+          <PrivateRoute path="/about"
+            exact
+            needLogin={needLogin}
+            component={About} />
         </Switch>
       </main>
     </BrowserRouter>

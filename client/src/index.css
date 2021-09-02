@@ -104,11 +104,12 @@ div[disabled] svg {
 }
 
 .h-content-container button {
+    padding: 0;
+    margin: 0;
     border-style: none;
     font-size: .9em;
     border-radius: none;
     font-family: arial;
-    padding: 4px 3px;
     background-color: white;
 }
 
@@ -123,7 +124,8 @@ div[disabled] svg {
 
 .h-btns {
     display: flex;
-    margin: 0 10px;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .h-btns button:hover {
@@ -131,8 +133,11 @@ div[disabled] svg {
     cursor: pointer;
 }
 
+.h-btns button {
+    margin-left: 1em;
+}
+
 .h-logout-btn {
-    margin: 0 5px;
     background-color: rgb(236,231,255);
 }
 
@@ -142,7 +147,6 @@ div[disabled] svg {
 }
 
 .h-writenew-btn {
-    margin: 0 5px;
     background-color: rgb(236,231,255);
 }
 
@@ -688,4 +692,21 @@ div[disabled] svg {
     padding: 4px;
     border-radius: 5px;
     color: #535353;
+}
+
+/*//////////////////////// About ////*/
+
+.ab-container {
+    margin-top: 10px;
+}
+
+.ab-title-container {
+    background: white;
+    margin: 0 10px 10px 0;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.ab-title-container h2 {
+    margin: 0;
 }

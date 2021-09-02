@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import * as AuthActions from '../actions/authentication';
 import LoginPanel from './LoginPanel'
-import { IoCreateOutline, IoLogOutOutline, IoLogInOutline } from "react-icons/io5";
+import { IoHelpCircleOutline, IoCreateOutline, IoLogOutOutline, IoLogInOutline } from "react-icons/io5";
 
 const Header = ({
     logout,
@@ -31,6 +31,9 @@ const Header = ({
                     <SearchBar />
                 </div>
                 <div className='h-btns'>
+                    <Link title='About' to='/about'>
+                        <button className='h-about-btn'><IoHelpCircleOutline /></button>
+                    </Link>
                     <Link title='Write' to='/write'>
                         <button className='h-writenew-btn'><IoCreateOutline /></button>
                     </Link>
